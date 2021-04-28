@@ -1,11 +1,15 @@
 import random
 import math
-import func_factory
+from functions_factory import *
 from pso import PSO
 
 if __name__ == "__PSO__":
     main()
 
-initial=[5, 5]                      # Położenie początkowe cząsteczek [x1,x2...]
-bounds=[(-10, 10), (-10, 10)]       # Granice układu [(x1_min,x1_max),(x2_min,x2_max)...]
-PSO(func_factory.func1, initial, bounds, num_particles=15, maxiter=30)
+def run_pso(function, num_particles, maxiter):
+    initial=function.initial            # Położenie początkowe cząsteczek [x1,x2...]
+    bounds=function.bounds              # Granice układu [(x1_min,x1_max),(x2_min,x2_max)...]
+    PSO(func=function.func, initial_pos=initial, bounds=bounds, num_particles=num_particles, maxiter=maxiter)
+
+for func in functions:
+    run_pso(func(), 50, 100)

@@ -32,6 +32,6 @@ class PSO():
             i += 1
 
         # Wyświetl wyniki
-        print('Wyniki: ')
-        print("Najlepsza pozycja: ", g_pos_best)
-        print("Najlepsza wartość funkcji dopasowania: ", g_value_best)
+        print("Wyniki ")
+        print("  Najlepsze rozwiązanie: ", g_value_best)
+        print("  Najlepsza pozycja: ", g_pos_best)
