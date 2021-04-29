@@ -12,4 +12,4 @@ from functions.crossit import *
 # from functions. import *
 # from functions. import *
 
-functions = [beale, easom, levy13, bukin6, crossit]
+functions = [beale, easom, levy13]
