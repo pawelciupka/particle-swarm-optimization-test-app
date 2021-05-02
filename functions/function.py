@@ -2,7 +2,7 @@ class Function:
     name = None
     solution = None
     solution_position = None
-    initial = None
+    num_dimensions = None
     bounds = None
     func = None
 

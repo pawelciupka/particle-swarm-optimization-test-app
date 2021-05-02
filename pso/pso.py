@@ -1,10 +1,9 @@
-from particle import Particle
+import random
+from pso.particle import PsoParticle
 
 
-class PSO():
-    def __init__(self, func, initial_pos, bounds, num_particles, maxiter):
-        num_dimensions = len(initial_pos)
-
+class Pso():
+    def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
         # Najlepsza pozycja roju
         g_pos_best = []
         # Wartość funkcji dopasowania w najlepszej pozycji roju
@@ -13,7 +12,10 @@ class PSO():
         # Inicjalizacja roju
         swarm = []
         for i in range(0, num_particles):
-            swarm.append(Particle(initial_pos))
+            initial_pos = []
+            for i in range(0, num_dimensions):
+                initial_pos.append(random.uniform(bounds[0], bounds[1]))
+            swarm.append(PsoParticle(initial_pos))
 
         # Główna pętla
         i = 0

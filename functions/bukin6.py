@@ -8,8 +8,8 @@ def bukin6():
     f.name = "BUKIN FUNCTION N. 6"
     f.solution = 0
     f.solution_position = [-10, 1]
-    f.initial = [-12.5, -12.5]
-    f.bounds = bounds = [(-15, -5), (-15, -5)]
+    f.num_dimensions = 2
+    f.bounds = [-15, -5]
     f.func = f_bukin6
     f.print_solution()
     return f

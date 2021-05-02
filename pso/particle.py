@@ -1,7 +1,7 @@
 import random
 
 
-class Particle:
+class PsoParticle:
     def __init__(self, initial_pos):
         self.num_dimensions = len(initial_pos)
 
@@ -52,9 +52,9 @@ class Particle:
             self.position[i] = self.position[i] + self.velocity[i]
 
             # Wyreguluj maksymalne położenie
-            if self.position[i] > bounds[i][1]:
-                self.position[i] = bounds[i][1]
+            if self.position[i] > bounds[1]:
+                self.position[i] = bounds[1]
 
             # Wyreguluj minimalne położenie
-            if self.position[i] < bounds[i][0]:
-                self.position[i] = bounds[i][0]
+            if self.position[i] < bounds[0]:
+                self.position[i] = bounds[0]

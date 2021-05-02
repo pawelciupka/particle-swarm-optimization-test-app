@@ -1,18 +1,16 @@
 import random
 import math
 from functions_factory import *
-from pso import PSO
+from pso.pso import Pso
 
 if __name__ == "__PSO__":
     main()
 
 
 def run_pso(function, num_particles, maxiter):
-    # Położenie początkowe cząsteczek [x1,x2...]
-    initial = function.initial
-    # Granice układu [(x1_min,x1_max),(x2_min,x2_max)...]
+    # Granice układu [min,max]
     bounds = function.bounds
-    PSO(func=function.func, initial_pos=initial, bounds=bounds,
+    Pso(func=function.func, num_dimensions=function.num_dimensions, bounds=bounds,
         num_particles=num_particles, maxiter=maxiter)
 
 

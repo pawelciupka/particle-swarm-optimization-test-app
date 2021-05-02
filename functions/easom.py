@@ -8,8 +8,8 @@ def easom():
     f.name = "EASOM FUNCTION"
     f.solution = -1
     f.solution_position = [pi, pi]
-    f.initial = [0, 0]
-    f.bounds = bounds = [(-100, 100), (-100, 100)]
+    f.num_dimensions = 2
+    f.bounds = [-100, 100]
     f.func = f_easom
     f.print_solution()
     return f

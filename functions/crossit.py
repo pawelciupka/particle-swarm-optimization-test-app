@@ -9,8 +9,8 @@ def crossit():
     f.solution = -2.06261
     f.solution_position = [(1.3491, -1.3491), (1.3491, 1.3491),
                            (-1.3491, 1.3491), (-1.3491, -1.3491)]
-    f.initial = [5, 5]
-    f.bounds = bounds = [(-10, 10), (-10, 10)]
+    f.num_dimensions = 2
+    f.bounds = [-10, 10]
     f.func = f_crossit
     f.print_solution()
     return f
