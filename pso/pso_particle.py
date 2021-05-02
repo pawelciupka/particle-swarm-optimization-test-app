@@ -8,28 +8,30 @@ class PsoParticle:
         # Pozycja cząsteczki
         self.position = []
         # Wartość funkcji dopasowania cząsteczki
-        self.value = -1
+        self.value = None
         # Prędkość cząsteczki
         self.velocity = []
         # Najlepsza pozycja cząsteczki
         self.p_pos_best = []
         # Wartość funkcji dopasowania w najlepszej pozycji cząsteczki
-        self.p_value_best = -1
+        self.p_value_best = None
 
         for i in range(0, self.num_dimensions):
             self.velocity.append(random.uniform(-1, 1))
             self.position.append(initial_pos[i])
 
-    # Oblicz nową wartość i zaktualizuj najlepszą pozycję
     def evaluate(self, func):
+        # Oblicz nową wartość i zaktualizuj najlepszą pozycję
+        #
         self.value = func(self.position)
 
-        if self.value < self.p_value_best or self.p_value_best == -1:
+        if self.p_value_best == None or self.value < self.p_value_best:
             self.p_pos_best = self.position
             self.p_value_best = self.value
 
-    # Zaktualizuj prędkość cząsteczki
     def update_velocity(self, pos_best_g):
+        # Zaktualizuj prędkość cząsteczki
+        #
         # Współczynnik poprzedniej prędkości
         w = 0.5
         # Współczynnik kognitywny
@@ -46,8 +48,9 @@ class PsoParticle:
             self.velocity[i] = w * self.velocity[i] + \
                 vel_cognitive + vel_social
 
-    # Zaktualizuj pozycję cząsteczki
     def update_position(self, bounds):
+        # Zaktualizuj pozycję cząsteczki
+        #
         for i in range(0, self.num_dimensions):
             self.position[i] = self.position[i] + self.velocity[i]
 
