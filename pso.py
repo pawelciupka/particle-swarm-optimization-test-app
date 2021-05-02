@@ -1,21 +1,24 @@
 from particle import Particle
 
+
 class PSO():
     def __init__(self, func, initial_pos, bounds, num_particles, maxiter):
         num_dimensions = len(initial_pos)
 
-        g_pos_best = []                 # Najlepsza pozycja roju
-        g_value_best = -1               # Wartość funkcji dopasowania w najlepszej pozycji roju
+        # Najlepsza pozycja roju
+        g_pos_best = []
+        # Wartość funkcji dopasowania w najlepszej pozycji roju
+        g_value_best = -1
 
         # Inicjalizacja roju
         swarm = []
         for i in range(0, num_particles):
             swarm.append(Particle(initial_pos))
 
-        # Główna pętla 
+        # Główna pętla
         i = 0
         while i < maxiter:
-            #print(i,g_value_best)
+            # print(i,g_value_best)
             # Przejdź przez wszystkie cząsteczki w roju i je przelicz
             for j in range(0, num_particles):
                 swarm[j].evaluate(func)
@@ -25,7 +28,7 @@ class PSO():
                     g_pos_best = list(swarm[j].position)
                     g_value_best = float(swarm[j].value)
 
-            # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje            
+            # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
             for j in range(0, num_particles):
                 swarm[j].update_velocity(g_pos_best)
                 swarm[j].update_position(bounds)
@@ -34,4 +37,4 @@ class PSO():
         # Wyświetl wyniki
         print("Wyniki ")
         print("  Najlepsze rozwiązanie: ", g_value_best)
-        print("  Najlepsza pozycja: ", g_pos_best)
+        print("  Najlepsza pozycja: ", g_pos_best)    

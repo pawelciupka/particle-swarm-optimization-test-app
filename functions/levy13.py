@@ -9,10 +9,11 @@ def levy13():
     f.solution = 0
     f.solution_position = [1, 1]
     f.initial = [0, 0]
-    f.bounds = bounds=[(-10, 10), (-10, 10)]
+    f.bounds = bounds = [(-10, 10), (-10, 10)]
     f.func = f_levy13
     f.print_solution()
     return f
+
 
 def f_levy13(position):
     x1, x2 = position

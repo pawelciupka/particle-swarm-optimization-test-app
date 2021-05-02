@@ -1,14 +1,20 @@
 import random
 
+
 class Particle:
-    def __init__(self, initial_pos):        
+    def __init__(self, initial_pos):
         self.num_dimensions = len(initial_pos)
 
-        self.position = []              # Pozycja cząsteczki
-        self.value = -1                 # Wartość funkcji dopasowania cząsteczki
-        self.velocity = []              # Prędkość cząsteczki
-        self.p_pos_best = []            # Najlepsza pozycja cząsteczki
-        self.p_value_best = -1          # Wartość funkcji dopasowania w najlepszej pozycji cząsteczki
+        # Pozycja cząsteczki
+        self.position = []
+        # Wartość funkcji dopasowania cząsteczki
+        self.value = -1
+        # Prędkość cząsteczki
+        self.velocity = []
+        # Najlepsza pozycja cząsteczki
+        self.p_pos_best = []
+        # Wartość funkcji dopasowania w najlepszej pozycji cząsteczki
+        self.p_value_best = -1
 
         for i in range(0, self.num_dimensions):
             self.velocity.append(random.uniform(-1, 1))
@@ -24,9 +30,12 @@ class Particle:
 
     # Zaktualizuj prędkość cząsteczki
     def update_velocity(self, pos_best_g):
-        w = 0.5       # Współczynnik poprzedniej prędkości
-        c1 = 1        # Współczynnik kognitywny
-        c2 = 2        # Współczynnik socjalny
+        # Współczynnik poprzedniej prędkości
+        w = 0.5
+        # Współczynnik kognitywny
+        c1 = 1
+        # Współczynnik socjalny
+        c2 = 2
 
         for i in range(0, self.num_dimensions):
             r1 = random.random()
@@ -34,7 +43,8 @@ class Particle:
 
             vel_cognitive = c1 * r1 * (self.p_pos_best[i] - self.position[i])
             vel_social = c2 * r2 * (pos_best_g[i] - self.position[i])
-            self.velocity[i] = w * self.velocity[i] + vel_cognitive + vel_social
+            self.velocity[i] = w * self.velocity[i] + \
+                vel_cognitive + vel_social
 
     # Zaktualizuj pozycję cząsteczki
     def update_position(self, bounds):
@@ -48,4 +58,3 @@ class Particle:
             # Wyreguluj minimalne położenie
             if self.position[i] < bounds[i][0]:
                 self.position[i] = bounds[i][0]
-                

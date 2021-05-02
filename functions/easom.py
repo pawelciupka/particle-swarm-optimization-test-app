@@ -9,10 +9,11 @@ def easom():
     f.solution = -1
     f.solution_position = [pi, pi]
     f.initial = [0, 0]
-    f.bounds = bounds=[(-100, 100), (-100, 100)]
+    f.bounds = bounds = [(-100, 100), (-100, 100)]
     f.func = f_easom
     f.print_solution()
     return f
+
 
 def f_easom(position):
     x1, x2 = position

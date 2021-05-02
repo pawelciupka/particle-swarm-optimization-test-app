@@ -7,12 +7,14 @@ def crossit():
     f = Function()
     f.name = "CROSS-IN-TRAY"
     f.solution = -2.06261
-    f.solution_position = [(1.3491, -1.3491), (1.3491, 1.3491), (-1.3491, 1.3491), (-1.3491, -1.3491)]
+    f.solution_position = [(1.3491, -1.3491), (1.3491, 1.3491),
+                           (-1.3491, 1.3491), (-1.3491, -1.3491)]
     f.initial = [5, 5]
-    f.bounds = bounds=[(-10, 10), (-10, 10)]
+    f.bounds = bounds = [(-10, 10), (-10, 10)]
     f.func = f_crossit
     f.print_solution()
     return f
+
 
 def f_crossit(position):
     x1, x2 = position
