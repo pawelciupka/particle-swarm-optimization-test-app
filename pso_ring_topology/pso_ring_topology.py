@@ -36,7 +36,7 @@ class PsoRingTplgy():
             for j in range(0, self.num_dimensions):
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoRingTplgyParticle(initial_pos, i))
+            self.swarm.append(PsoRingTplgyParticle(initial_pos))
 
     def main(self):
         # Główna pętla

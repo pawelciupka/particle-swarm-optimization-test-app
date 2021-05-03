@@ -2,10 +2,9 @@ import random
 
 
 class PsoRingTplgyParticle:
-    def __init__(self, initial_pos, index):
+    def __init__(self, initial_pos):
         self.num_dimensions = len(initial_pos)
 
-        self.index = None
         # Pozycja cząsteczki
         self.position = []
         # Wartość funkcji dopasowania cząsteczki

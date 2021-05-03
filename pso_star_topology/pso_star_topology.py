@@ -36,7 +36,7 @@ class PsoStarTplgy():
             for j in range(0, self.num_dimensions):
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoStarTplgyParticle(initial_pos, i))
+            self.swarm.append(PsoStarTplgyParticle(initial_pos))
 
         self.global_neighborhood_index = random.randint(0, self.num_particles)
 

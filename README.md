@@ -7,10 +7,11 @@
 ### Praca - aplikacja
 
 - Zaiplementować kilka modyfikacji/rozszerzeń metody PSO:
+  Współczynnik inercji (modyfikacja prędkości)
   Topologia pierścienia (modyfikacja sąsiedztwa)
   Sąsiedztwo przestrzenne ze zmiennym progiem (modyfikacja sąsiedztwa)
   Topologia gwiazdy (modyfikacja sąsiedztwa)
-  \_
+  Selekcja (operatory ewolucyjne)
 
 - Zaimplementować własne modyfikację/rozszerzenie (współczynnika)
   \_
