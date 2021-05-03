@@ -1,5 +1,5 @@
 import random
-from pso_ring_topology.pso_ring_topology_particle import PsoRingTplgyParticle
+from pso.pso_particle import PsoParticle
 
 
 class PsoRingTplgy():
@@ -36,7 +36,7 @@ class PsoRingTplgy():
             for j in range(0, self.num_dimensions):
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoRingTplgyParticle(initial_pos))
+            self.swarm.append(PsoParticle(initial_pos))
 
     def main(self):
         # Główna pętla

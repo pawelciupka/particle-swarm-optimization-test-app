@@ -1,6 +1,6 @@
 import random
 import math
-from pso_spatial_neighborhood.pso_spatial_neighborhood_particle import PsoSpatialNeighParticle
+from pso.pso_particle import PsoParticle
 
 
 class PsoSpatialNeigh():
@@ -34,7 +34,7 @@ class PsoSpatialNeigh():
             for j in range(0, self.num_dimensions):
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoSpatialNeighParticle(initial_pos))
+            self.swarm.append(PsoParticle(initial_pos))
 
     def main(self):
         # Główna pętla

@@ -2,9 +2,8 @@ import random
 from pso.pso_particle import PsoParticle
 
 
-class PsoStarTplgy():
+class PsoSelection():
     def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
-        # Funkcja celu
         self.func = func
         # Liczba wymiarów
         self.num_dimensions = num_dimensions
@@ -20,8 +19,6 @@ class PsoStarTplgy():
         self.g_value_best = None
         # Rój
         self.swarm = []
-        # Indeks cząsteczki, która jest sąsiadem wszystkich cząsteczek w roju
-        self.global_neighborhood_index = None
 
         # Ciało algorytmu
         self.init_swarm()
@@ -37,8 +34,6 @@ class PsoStarTplgy():
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
             self.swarm.append(PsoParticle(initial_pos))
-
-        self.global_neighborhood_index = random.randint(0, self.num_particles)
 
     def main(self):
         # Główna pętla
@@ -61,16 +56,13 @@ class PsoStarTplgy():
     def update_velocity_and_position(self):
         # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
         #
-        global_neighborhood_pos = list(
-            self.swarm[self.global_neighborhood_index].position)
-
         for i in range(0, self.num_particles):
-            self.swarm[i].update_velocity(global_neighborhood_pos)
+            self.swarm[i].update_velocity(self.g_pos_best)
             self.swarm[i].update_position(self.bounds)
 
     def print_solution(self):
         # Wyświetl wyniki
         #
-        print("Wyniki - Topologia gwiazdy")
+        print("Wyniki - Klasyczny")
         print("  Najlepsze rozwiązanie: ", self.g_value_best)
         print("  Najlepsza pozycja: ", self.g_pos_best)
