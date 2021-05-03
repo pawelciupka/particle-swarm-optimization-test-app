@@ -1,5 +1,6 @@
 {
-    "num_particles": 100,
-    "maxiter": 50,
-    "num_neighborhoods": 10
+    "num_particles": 50,
+    "maxiter": 500,
+    "num_neighborhoods": 10,
+    "num_tournament_particles": 10
 }

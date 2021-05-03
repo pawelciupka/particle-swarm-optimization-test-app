@@ -1,9 +1,9 @@
 import random
-from pso.pso_particle import PsoParticle
+from pso_selection.pso_selection_particle import PsoSelectionParticle
 
 
 class PsoSelection():
-    def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
+    def __init__(self, func, num_dimensions, bounds, num_particles, maxiter, num_tournament_particles):
         self.func = func
         # Liczba wymiarów
         self.num_dimensions = num_dimensions
@@ -13,6 +13,8 @@ class PsoSelection():
         self.num_particles = num_particles
         # Liczba iteracji
         self.maxiter = maxiter
+        # Liczba cząsteczek, biorąca udział w turnieju
+        self.num_tournament_particles = num_tournament_particles
         # Najlepsza pozycja roju
         self.g_pos_best = []
         # Wartość funkcji dopasowania w najlepszej pozycji roju
@@ -33,7 +35,8 @@ class PsoSelection():
             for j in range(0, self.num_dimensions):
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoParticle(initial_pos))
+            self.swarm.append(PsoSelectionParticle(initial_pos))
+            self.swarm[i].evaluate(self.func)
 
     def main(self):
         # Główna pętla
@@ -44,14 +47,41 @@ class PsoSelection():
             for j in range(0, self.num_particles):
                 self.swarm[j].evaluate(self.func)
 
+                self.tournament_selection(self.swarm[j], j)
+
                 # Sprawdź, czy aktualna cząsteczka jest najlepsza
                 if self.g_value_best == None or self.swarm[j].value < self.g_value_best:
                     self.g_pos_best = list(self.swarm[j].position)
                     self.g_value_best = float(self.swarm[j].value)
 
+            self.assign_positions_of_better_half()
             self.update_velocity_and_position()
 
             i += 1
+
+    def tournament_selection(self, particle, current_particle_index):
+        # Selekcja turniejowa
+        #
+        # Wyzeruj liczbę punktów
+        particle.reset_points()
+        for i in range(0, self.num_tournament_particles):
+            # Wylosuj indeks inny niż aktualnej cząsteczki
+            index = random.randint(0, self.num_particles-1)
+            while current_particle_index == index:
+                index = random.randint(0, self.num_particles-1)
+
+            # Sprawdź, czy wartość aktualnej cząsteczki jest większa od cząsteczki turniejowej
+            if particle.value > self.swarm[index].value:
+                particle.add_point()
+
+    def assign_positions_of_better_half(self):
+        # Posortuj rój na podstawie liczby punktów (od największego do najmniejszego)
+        # Przypisz położenia lepszej połowy roju do cząsteczek z gorszej połowy
+        #
+        self.swarm = sorted(self.swarm, key=sort_by_points, reverse=True)
+        half_swarm = int(self.num_particles/2)
+        for i in range(0, half_swarm):
+            self.swarm[i+half_swarm].position = self.swarm[i].position
 
     def update_velocity_and_position(self):
         # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
@@ -63,6 +93,10 @@ class PsoSelection():
     def print_solution(self):
         # Wyświetl wyniki
         #
-        print("Wyniki - Klasyczny")
+        print("Wyniki - Selekcja")
         print("  Najlepsze rozwiązanie: ", self.g_value_best)
         print("  Najlepsza pozycja: ", self.g_pos_best)
+
+
+def sort_by_points(k):
+    return k.points
