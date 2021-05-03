@@ -56,9 +56,9 @@ class Pso():
     def update_velocity_and_position(self):
         # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
         #
-        for j in range(0, self.num_particles):
-            self.swarm[j].update_velocity(self.g_pos_best)
-            self.swarm[j].update_position(self.bounds)
+        for i in range(0, self.num_particles):
+            self.swarm[i].update_velocity(self.g_pos_best)
+            self.swarm[i].update_position(self.bounds)
 
     def print_solution(self):
         # Wyświetl wyniki

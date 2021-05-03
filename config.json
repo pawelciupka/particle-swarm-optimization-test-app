@@ -1,5 +1,5 @@
 {
     "num_particles": 50,
-    "maxiter": 50,
+    "maxiter": 500,
     "num_neighborhoods": 10
 }
