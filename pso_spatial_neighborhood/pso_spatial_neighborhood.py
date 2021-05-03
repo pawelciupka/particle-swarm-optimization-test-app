@@ -109,6 +109,6 @@ class PsoSpatialNeigh():
     def print_solution(self):
         # Wyświetl wyniki
         #
-        print("Wyniki ")
+        print("Wyniki - Sąsiedztwo Przestrzenne")
         print("  Najlepsze rozwiązanie: ", self.g_value_best)
         print("  Najlepsza pozycja: ", self.g_pos_best)

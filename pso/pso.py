@@ -63,6 +63,6 @@ class Pso():
     def print_solution(self):
         # Wyświetl wyniki
         #
-        print("Wyniki ")
+        print("Wyniki - Klasyczny")
         print("  Najlepsze rozwiązanie: ", self.g_value_best)
         print("  Najlepsza pozycja: ", self.g_pos_best)

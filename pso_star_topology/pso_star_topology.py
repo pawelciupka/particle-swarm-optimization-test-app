@@ -1,9 +1,9 @@
 import random
-from pso_ring_topology.pso_ring_topology_particle import PsoRingTplgyParticle
+from pso_star_topology.pso_star_topology_particle import PsoStarTplgyParticle
 
 
-class PsoRingTplgy():
-    def __init__(self, func, num_dimensions, bounds, num_particles, maxiter, num_neighborhoods):
+class PsoStarTplgy():
+    def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
         # Funkcja celu
         self.func = func
         # Liczba wymiarów
@@ -14,14 +14,14 @@ class PsoRingTplgy():
         self.num_particles = num_particles
         # Liczba iteracji
         self.maxiter = maxiter
-        # Liczba sąsiadów (wartość parzysta)
-        self.num_neighborhoods = num_neighborhoods
         # Najlepsza pozycja roju
         self.g_pos_best = []
         # Wartość funkcji dopasowania w najlepszej pozycji roju
         self.g_value_best = None
         # Rój
         self.swarm = []
+        # Indeks cząsteczki, która jest sąsiadem wszystkich cząsteczek w roju
+        self.global_neighborhood_index = None
 
         # Ciało algorytmu
         self.init_swarm()
@@ -36,7 +36,9 @@ class PsoRingTplgy():
             for j in range(0, self.num_dimensions):
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoRingTplgyParticle(initial_pos, i))
+            self.swarm.append(PsoStarTplgyParticle(initial_pos, i))
+
+        self.global_neighborhood_index = random.randint(0, self.num_particles)
 
     def main(self):
         # Główna pętla
@@ -59,26 +61,16 @@ class PsoRingTplgy():
     def update_velocity_and_position(self):
         # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
         #
+        global_neighborhood_pos = list(
+            self.swarm[self.global_neighborhood_index].position)
+
         for i in range(0, self.num_particles):
-            neighborhoods_pos_best = self.swarm[i].position
-            neighborhoods_value_best = self.swarm[i].value
-
-            # Znajdź najlepsze położenie wśród sąsiadów
-            for j in range(0, int(self.num_neighborhoods/2)):
-                index1 = (i+j) % self.num_particles
-                if self.swarm[index1].value < neighborhoods_value_best:
-                    neighborhoods_pos_best = list(self.swarm[index1].position)
-
-                index2 = (i-j) % self.num_particles
-                if self.swarm[index2].value < neighborhoods_value_best:
-                    neighborhoods_pos_best = list(self.swarm[index2].position)
-
-            self.swarm[i].update_velocity(neighborhoods_pos_best)
+            self.swarm[i].update_velocity(global_neighborhood_pos)
             self.swarm[i].update_position(self.bounds)
 
     def print_solution(self):
         # Wyświetl wyniki
         #
-        print("Wyniki - Topologia Pierścienia")
+        print("Wyniki - Topologia gwiazdy")
         print("  Najlepsze rozwiązanie: ", self.g_value_best)
         print("  Najlepsza pozycja: ", self.g_pos_best)
