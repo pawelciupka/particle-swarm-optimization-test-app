@@ -11,7 +11,7 @@ def ackley():
     f.num_dimensions = 2
     f.bounds = [-32.768, 32.768]
     f.func = f_ackley
-    f.print_solution()
+    # f.print_solution()
     return f
 
 

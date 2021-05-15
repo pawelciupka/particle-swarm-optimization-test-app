@@ -11,7 +11,7 @@ def easom():
     f.num_dimensions = 2
     f.bounds = [-100, 100]
     f.func = f_easom
-    f.print_solution()
+    # f.print_solution()
     return f
 
 

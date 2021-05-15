@@ -11,7 +11,7 @@ def levy13():
     f.num_dimensions = 2
     f.bounds = [-10, 10]
     f.func = f_levy13
-    f.print_solution()
+    # f.print_solution()
     return f
 
 

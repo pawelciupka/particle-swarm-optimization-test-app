@@ -3,7 +3,7 @@ from pso_selection.pso_selection_particle import PsoSelectionParticle
 
 
 class PsoSelection():
-    def __init__(self, func, num_dimensions, bounds, num_particles, maxiter, num_tournament_particles):
+    def __init__(self, func, num_dimensions, bounds, num_particles, num_tournament_particles):
         self.func = func
         # Liczba wymiarów
         self.num_dimensions = num_dimensions
@@ -11,8 +11,6 @@ class PsoSelection():
         self.bounds = bounds
         # Liczba cząsteczek
         self.num_particles = num_particles
-        # Liczba iteracji
-        self.maxiter = maxiter
         # Liczba cząsteczek, biorąca udział w turnieju
         self.num_tournament_particles = num_tournament_particles
         # Najlepsza pozycja roju
@@ -22,10 +20,12 @@ class PsoSelection():
         # Rój
         self.swarm = []
 
-        # Ciało algorytmu
-        self.init_swarm()
-        self.main()
-        self.print_solution()
+    def reset(self):
+        # Reset wartości algorytmu
+        #
+        self.g_pos_best = []
+        self.g_value_best = None
+        self.swarm = []
 
     def init_swarm(self):
         # Inicjalizacja roju
@@ -38,26 +38,23 @@ class PsoSelection():
             self.swarm.append(PsoSelectionParticle(initial_pos))
             self.swarm[i].evaluate(self.func)
 
-    def main(self):
+    def main(self, iter):
         # Główna pętla
         #
-        i = 0
-        while i < self.maxiter:
-            # Przejdź przez wszystkie cząsteczki w roju i je przelicz
-            for j in range(0, self.num_particles):
-                self.swarm[j].evaluate(self.func)
+        # Przejdź przez wszystkie cząsteczki w roju i je przelicz
+        for j in range(0, self.num_particles):
+            self.swarm[j].evaluate(self.func)
 
-                self.tournament_selection(self.swarm[j], j)
+            self.tournament_selection(self.swarm[j], j)
 
-                # Sprawdź, czy aktualna cząsteczka jest najlepsza
-                if self.g_value_best == None or self.swarm[j].value < self.g_value_best:
-                    self.g_pos_best = list(self.swarm[j].position)
-                    self.g_value_best = float(self.swarm[j].value)
+            # Sprawdź, czy aktualna cząsteczka jest najlepsza
+            if self.g_value_best == None or self.swarm[j].value < self.g_value_best:
+                self.g_pos_best = list(self.swarm[j].position)
+                self.g_value_best = float(self.swarm[j].value)
 
-            self.assign_positions_of_better_half()
-            self.update_velocity_and_position()
+        self.assign_positions_of_better_half()
+        self.update_velocity_and_position()
 
-            i += 1
 
     def tournament_selection(self, particle, current_particle_index):
         # Selekcja turniejowa

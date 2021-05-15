@@ -3,7 +3,7 @@ from pso.pso_particle import PsoParticle
 
 
 class PsoStarTplgy():
-    def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
+    def __init__(self, func, num_dimensions, bounds, num_particles):
         # Funkcja celu
         self.func = func
         # Liczba wymiarów
@@ -12,8 +12,6 @@ class PsoStarTplgy():
         self.bounds = bounds
         # Liczba cząsteczek
         self.num_particles = num_particles
-        # Liczba iteracji
-        self.maxiter = maxiter
         # Najlepsza pozycja roju
         self.g_pos_best = []
         # Wartość funkcji dopasowania w najlepszej pozycji roju
@@ -23,10 +21,12 @@ class PsoStarTplgy():
         # Indeks cząsteczki, która jest sąsiadem wszystkich cząsteczek w roju
         self.global_neighborhood_index = None
 
-        # Ciało algorytmu
-        self.init_swarm()
-        self.main()
-        self.print_solution()
+    def reset(self):
+        # Reset wartości algorytmu
+        #
+        self.g_pos_best = []
+        self.g_value_best = None
+        self.swarm = []
 
     def init_swarm(self):
         # Inicjalizacja roju
@@ -40,23 +40,20 @@ class PsoStarTplgy():
 
         self.global_neighborhood_index = random.randint(0, self.num_particles)
 
-    def main(self):
+    def main(self, iter):
         # Główna pętla
         #
-        i = 0
-        while i < self.maxiter:
-            # Przejdź przez wszystkie cząsteczki w roju i je przelicz
-            for j in range(0, self.num_particles):
-                self.swarm[j].evaluate(self.func)
+        # Przejdź przez wszystkie cząsteczki w roju i je przelicz
+        for j in range(0, self.num_particles):
+            self.swarm[j].evaluate(self.func)
 
-                # Sprawdź, czy aktualna cząsteczka jest najlepsza
-                if self.g_value_best == None or self.swarm[j].value < self.g_value_best:
-                    self.g_pos_best = list(self.swarm[j].position)
-                    self.g_value_best = float(self.swarm[j].value)
+            # Sprawdź, czy aktualna cząsteczka jest najlepsza
+            if self.g_value_best == None or self.swarm[j].value < self.g_value_best:
+                self.g_pos_best = list(self.swarm[j].position)
+                self.g_value_best = float(self.swarm[j].value)
 
-            self.update_velocity_and_position()
+        self.update_velocity_and_position()
 
-            i += 1
 
     def update_velocity_and_position(self):
         # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje

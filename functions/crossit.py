@@ -12,7 +12,7 @@ def crossit():
     f.num_dimensions = 2
     f.bounds = [-10, 10]
     f.func = f_crossit
-    f.print_solution()
+    # f.print_solution()
     return f
 
 

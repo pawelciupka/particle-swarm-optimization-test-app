@@ -11,7 +11,7 @@ def beale():
     f.num_dimensions = 2
     f.bounds = [-4.5, 4.5]
     f.func = f_beale
-    f.print_solution()
+    # f.print_solution()
     return f
 
 
