@@ -62,7 +62,13 @@ class Main:
     def algorithms(self):
         # Lista testowanych algorytmów
         #
-        return [self.pso, self.pso_ring_topology, self.pso_spatial_neighborhood, self.pso_star_topology, self.pso_selection]
+        algorithms = []
+        # algorithms.append(self.pso)
+        # algorithms.append(self.pso_ring_topology)        
+        # algorithms.append(self.pso_spatial_neighborhood)        
+        # algorithms.append(self.pso_star_topology)        
+        algorithms.append(self.pso_selection)
+        return algorithms
 
 
 main = Main(functions)

@@ -32,20 +32,16 @@ class PsoParticle:
     def update_velocity(self, pos_best_g):
         # Zaktualizuj prędkość cząsteczki
         #
-        # Współczynnik poprzedniej prędkości
-        w = 0.5
-        # Współczynnik kognitywny
-        c1 = 1
-        # Współczynnik socjalny
-        c2 = 2
+        # Współczynnik iniercji/kognitywny/socjalny (w, c1, c2)
+        velocity_factors = [0.5, 1, 2]
 
         for i in range(0, self.num_dimensions):
             r1 = random.random()
             r2 = random.random()
 
-            vel_cognitive = c1 * r1 * (self.p_pos_best[i] - self.position[i])
-            vel_social = c2 * r2 * (pos_best_g[i] - self.position[i])
-            self.velocity[i] = w * self.velocity[i] + \
+            vel_cognitive = velocity_factors[1] * r1 * (self.p_pos_best[i] - self.position[i])
+            vel_social = velocity_factors[2] * r2 * (pos_best_g[i] - self.position[i])
+            self.velocity[i] = velocity_factors[0] * self.velocity[i] + \
                 vel_cognitive + vel_social
 
     def update_position(self, bounds):
