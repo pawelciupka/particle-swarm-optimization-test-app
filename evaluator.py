@@ -64,9 +64,15 @@ class Evaluator:
     def results(self):
         # Rezultaty
         #
+        return [self.efficiency(), self.avg_successful_iters()]
+
+    def print_results(self):
+        # Wyświetlanie rezultatów
+        #
         print("Algorytm: ", self.algorithm.name)
         print("Funkcja:  ", self.func.name)
         print("  Skuteczność: ", self.efficiency())
         print("  Średnia liczba potrzebnych iteracji ",
               self.avg_successful_iters())
         print()
+

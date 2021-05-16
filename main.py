@@ -18,15 +18,25 @@ class Main:
         self.num_neighborhoods = config["num_neighborhoods"]
         self.num_tournament_particles = config["num_tournament_particles"]
 
+        self.results = []
+
     def main(self):
         # Główny punkt aplikacji
         #
-        for func in self.functions():
-            for algorithm in self.algorithms():
+        for algorithm in self.algorithms():
+            for func in self.functions():
                 algorithm_obj = algorithm(func())
                 eval = Evaluator(func(), self.maxiter,
                                  self.num_runs, algorithm_obj)
-                eval.results()
+                eval.print_results()
+                self.add_to_export_results(func().name, algorithm_obj.name, eval.results())
+        export_results(self.results)
+
+    def add_to_export_results(self, func_name, algorithm_name, evaluation_results):
+        result = [algorithm_name, func_name]
+        for r in evaluation_results:
+            result.append(r)
+        self.results.append(result)
 
     def pso(self, function):
         # Klasyczny algorytm PSO
@@ -67,10 +77,10 @@ class Main:
         #
         algorithms = []
         algorithms.append(self.pso)
-        # algorithms.append(self.pso_ring_topology)
+        algorithms.append(self.pso_ring_topology)
         # algorithms.append(self.pso_spatial_neighborhood)
         # algorithms.append(self.pso_star_topology)
-        # algorithms.append(self.pso_selection)
+        algorithms.append(self.pso_selection)
         return algorithms
 
     def functions(self):
@@ -78,10 +88,10 @@ class Main:
         #
         functions = []
         functions.append(beale)
-        # functions.append(easom)
-        # functions.append(levy13)
-        # functions.append(ackley)
-        # functions.append(crossit)
+        functions.append(easom)
+        functions.append(levy13)
+        functions.append(ackley)
+        functions.append(crossit)
         return functions
 
 
