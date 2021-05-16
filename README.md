@@ -6,9 +6,7 @@
 
 ### Praca - aplikacja
 
-- Sprawdzić poprawność zaimplementowanych metod
 - Zaimplementować własne modyfikację/rozszerzenie (współczynnika)
-  \_
 
 ### Praca - tekst
 

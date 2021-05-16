@@ -15,6 +15,8 @@ class Evaluator:
         # Iteracje, w których znaleziono rozwiązanie
         self.successful_runs_iters = []
 
+        self.precision = 1
+
         self.main()
 
     def stop_condition(self, iter):
@@ -23,7 +25,7 @@ class Evaluator:
         # 2. Jeżeli zostanie znalezione rozwiązanie
         #
         if iter < self.maxiter:
-            if self.func.solution == self.algorithm.g_value_best:
+            if self.algorithm.g_value_best != None and round(self.func.solution, self.precision) == round(self.algorithm.g_value_best, self.precision):
                 self.num_successful_runs += 1
                 self.successful_runs_iters.append(iter)
                 return False
@@ -75,4 +77,3 @@ class Evaluator:
         print("  Średnia liczba potrzebnych iteracji ",
               self.avg_successful_iters())
         print()
-

@@ -16,6 +16,8 @@ class PsoParticle:
         self.p_pos_best = []
         # Wartość funkcji celu w najlepszej pozycji cząsteczki
         self.p_value_best = None
+        # Ilość punktów turniejowych
+        self.points = 0
 
         for i in range(0, self.num_dimensions):
             self.velocity.append(random.uniform(-1, 1))
@@ -60,3 +62,9 @@ class PsoParticle:
             # Wyreguluj minimalne położenie
             if self.position[i] < bounds[0]:
                 self.position[i] = bounds[0]
+
+    def add_point(self):
+        self.points += 1
+
+    def reset_points(self):
+        self.points = 0

@@ -1,5 +1,5 @@
 import random
-from pso_selection.pso_selection_particle import PsoSelectionParticle
+from pso.pso_particle import PsoParticle
 
 
 class PsoSelection():
@@ -38,8 +38,7 @@ class PsoSelection():
             for j in range(0, self.num_dimensions):
                 initial_pos.append(random.uniform(
                     self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoSelectionParticle(initial_pos))
-            self.swarm[i].evaluate(self.func)
+            self.swarm.append(PsoParticle(initial_pos))
 
     def main(self, iter):
         # Główna pętla
@@ -47,14 +46,16 @@ class PsoSelection():
         for j in range(0, self.num_particles):
             self.swarm[j].evaluate(self.func)
 
-            self.tournament_selection(self.swarm[j], j)
-
             # Sprawdź, czy aktualna cząsteczka jest najlepsza
             if self.g_value_best == None or self.swarm[j].value < self.g_value_best:
                 self.g_pos_best = list(self.swarm[j].position)
                 self.g_value_best = float(self.swarm[j].value)
 
-        self.assign_positions_of_better_half()
+            if iter > 0:
+                self.tournament_selection(self.swarm[j], j)
+
+        if iter > 0:
+            self.assign_positions_of_better_half()
         self.update_velocity_and_position(iter)
 
     def tournament_selection(self, particle, current_particle_index):
@@ -68,8 +69,8 @@ class PsoSelection():
             while current_particle_index == index:
                 index = random.randint(0, self.num_particles-1)
 
-            # Sprawdź, czy wartość aktualnej cząsteczki jest większa od cząsteczki turniejowej
-            if particle.value > self.swarm[index].value:
+            # Sprawdź, czy wartość aktualnej cząsteczki jest mniejsza od cząsteczki turniejowej
+            if particle.value < self.swarm[index].value:
                 particle.add_point()
 
     def assign_positions_of_better_half(self):
