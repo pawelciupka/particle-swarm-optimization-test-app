@@ -1,4 +1,5 @@
 import random
+import coefficient_factory
 
 
 class PsoSelectionParticle:
@@ -7,13 +8,13 @@ class PsoSelectionParticle:
 
         # Pozycja cząsteczki
         self.position = []
-        # Wartość funkcji dopasowania cząsteczki
+        # Wartość funkcji celu cząsteczki
         self.value = None
         # Prędkość cząsteczki
         self.velocity = []
         # Najlepsza pozycja cząsteczki
         self.p_pos_best = []
-        # Wartość funkcji dopasowania w najlepszej pozycji cząsteczki
+        # Wartość funkcji celu w najlepszej pozycji cząsteczki
         self.p_value_best = None
         # Ilość punktów turniejowych
         self.points = 0
@@ -31,19 +32,21 @@ class PsoSelectionParticle:
             self.p_pos_best = self.position
             self.p_value_best = self.value
 
-    def update_velocity(self, pos_best_g):
+    def update_velocity(self, pos_best_g, iter):
         # Zaktualizuj prędkość cząsteczki
         #
-        # Współczynnik iniercji/kognitywny/socjalny (w, c1, c2)
-        velocity_factors = [0.5, 1, 2]
+        # Współczynnik inercji/kognitywny/socjalny (w, c1, c2)
+        w = coefficient_factory.inertia_coefficient(iter)
+        c1 = coefficient_factory.cognitive_coefficient(iter)
+        c2 = coefficient_factory.social_coefficient(iter)
 
         for i in range(0, self.num_dimensions):
             r1 = random.random()
             r2 = random.random()
 
-            vel_cognitive = velocity_factors[1] * r1 * (self.p_pos_best[i] - self.position[i])
-            vel_social = velocity_factors[2] * r2 * (pos_best_g[i] - self.position[i])
-            self.velocity[i] = velocity_factors[0] * self.velocity[i] + \
+            vel_cognitive = c1 * r1 * (self.p_pos_best[i] - self.position[i])
+            vel_social = c2 * r2 * (pos_best_g[i] - self.position[i])
+            self.velocity[i] = w * self.velocity[i] + \
                 vel_cognitive + vel_social
 
     def update_position(self, bounds):

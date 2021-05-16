@@ -1,8 +1,6 @@
-
-
 class Evaluator:
-    def __init__(self, func, maxiter, num_runs, algorithm):     
-        # Funkcja   
+    def __init__(self, func, maxiter, num_runs, algorithm):
+        # Funkcja
         self.func = func
         # Algorytm domyślny
         self.algorithm_default = algorithm
@@ -50,7 +48,7 @@ class Evaluator:
     def efficiency(self):
         # Skuteczność = liczba pomyślnie zakończonych uruchomień / liczba uruchomień
         #
-        return self.num_successful_runs /  self.num_runs
+        return self.num_successful_runs / self.num_runs
 
     def avg_successful_iters(self):
         # Średnia liczba iteracji w pomyślnie zakończonych uruchomieniach
@@ -66,7 +64,9 @@ class Evaluator:
     def results(self):
         # Rezultaty
         #
-        print(self.algorithm.__class__)
+        print("Algorytm: ", self.algorithm.name)
+        print("Funkcja:  ", self.func.name)
         print("  Skuteczność: ", self.efficiency())
-        print("  Średnia liczba potrzebnych iteracji ", self.avg_successful_iters())
+        print("  Średnia liczba potrzebnych iteracji ",
+              self.avg_successful_iters())
         print()

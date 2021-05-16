@@ -5,6 +5,9 @@ from pso.pso_particle import PsoParticle
 
 class PsoSpatialNeigh():
     def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
+        # Nazwa
+        self.name = "PSO - Sąsiedztwo przestrzenne ze zmiennym progiem"
+        # Funkcja celu
         self.func = func
         # Liczba wymiarów
         self.num_dimensions = num_dimensions
@@ -16,7 +19,7 @@ class PsoSpatialNeigh():
         self.maxiter = maxiter
         # Najlepsza pozycja roju
         self.g_pos_best = []
-        # Wartość funkcji dopasowania w najlepszej pozycji roju
+        # Wartość funkcji celu w najlepszej pozycji roju
         self.g_value_best = None
         # Rój
         self.swarm = []
@@ -41,7 +44,6 @@ class PsoSpatialNeigh():
     def main(self, iter):
         # Główna pętla
         #
-        # Przejdź przez wszystkie cząsteczki w roju i je przelicz
         for j in range(0, self.num_particles):
             self.swarm[j].evaluate(self.func)
 
@@ -52,9 +54,8 @@ class PsoSpatialNeigh():
 
         self.update_velocity_and_position(iter)
 
-
     def update_velocity_and_position(self, iter):
-        # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
+        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
         #
         # Maksymalna odległość pomiędzy cząsteczkami w roju
         max_distance = self.get_max_distance_between_particles()
@@ -75,7 +76,7 @@ class PsoSpatialNeigh():
                     if self.swarm[j].value < neighborhoods_value_best:
                         neighborhoods_pos_best = list(self.swarm[j].position)
 
-            self.swarm[i].update_velocity(neighborhoods_pos_best)
+            self.swarm[i].update_velocity(neighborhoods_pos_best, iter)
             self.swarm[i].update_position(self.bounds)
 
     def calculate_distance(self, particle1, particle2):
@@ -104,10 +105,3 @@ class PsoSpatialNeigh():
         # Oblicz zmienną wartość progową sąsiedztwa
         #
         return (3*iter + 0.6*self.maxiter) / self.maxiter
-
-    def print_solution(self):
-        # Wyświetl wyniki
-        #
-        print("Wyniki - Sąsiedztwo Przestrzenne")
-        print("  Najlepsze rozwiązanie: ", self.g_value_best)
-        print("  Najlepsza pozycja: ", self.g_pos_best)

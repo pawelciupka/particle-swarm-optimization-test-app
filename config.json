@@ -1,6 +1,6 @@
 {
-    "num_particles": 10,
-    "maxiter": 1000,
+    "num_particles": 25,
+    "maxiter": 10000,
     "num_neighborhoods": 10,
     "num_tournament_particles": 10,
     "num_runs": 10

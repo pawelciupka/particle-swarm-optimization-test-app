@@ -4,6 +4,9 @@ from pso_selection.pso_selection_particle import PsoSelectionParticle
 
 class PsoSelection():
     def __init__(self, func, num_dimensions, bounds, num_particles, num_tournament_particles):
+        # Nazwa
+        self.name = "PSO - Selekcja"
+        # Funkcja celu
         self.func = func
         # Liczba wymiarów
         self.num_dimensions = num_dimensions
@@ -15,7 +18,7 @@ class PsoSelection():
         self.num_tournament_particles = num_tournament_particles
         # Najlepsza pozycja roju
         self.g_pos_best = []
-        # Wartość funkcji dopasowania w najlepszej pozycji roju
+        # Wartość funkcji celu w najlepszej pozycji roju
         self.g_value_best = None
         # Rój
         self.swarm = []
@@ -41,7 +44,6 @@ class PsoSelection():
     def main(self, iter):
         # Główna pętla
         #
-        # Przejdź przez wszystkie cząsteczki w roju i je przelicz
         for j in range(0, self.num_particles):
             self.swarm[j].evaluate(self.func)
 
@@ -53,8 +55,7 @@ class PsoSelection():
                 self.g_value_best = float(self.swarm[j].value)
 
         self.assign_positions_of_better_half()
-        self.update_velocity_and_position()
-
+        self.update_velocity_and_position(iter)
 
     def tournament_selection(self, particle, current_particle_index):
         # Selekcja turniejowa
@@ -80,19 +81,12 @@ class PsoSelection():
         for i in range(0, half_swarm):
             self.swarm[i+half_swarm].position = self.swarm[i].position
 
-    def update_velocity_and_position(self):
-        # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
+    def update_velocity_and_position(self, iter):
+        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
         #
         for i in range(0, self.num_particles):
-            self.swarm[i].update_velocity(self.g_pos_best)
+            self.swarm[i].update_velocity(self.g_pos_best, iter)
             self.swarm[i].update_position(self.bounds)
-
-    def print_solution(self):
-        # Wyświetl wyniki
-        #
-        print("Wyniki - Selekcja")
-        print("  Najlepsze rozwiązanie: ", self.g_value_best)
-        print("  Najlepsza pozycja: ", self.g_pos_best)
 
 
 def sort_by_points(k):

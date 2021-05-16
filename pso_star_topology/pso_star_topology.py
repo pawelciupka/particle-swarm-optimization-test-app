@@ -4,6 +4,8 @@ from pso.pso_particle import PsoParticle
 
 class PsoStarTplgy():
     def __init__(self, func, num_dimensions, bounds, num_particles):
+        # Nazwa
+        self.name = "PSO - Topologia gwiazdy"
         # Funkcja celu
         self.func = func
         # Liczba wymiarów
@@ -14,7 +16,7 @@ class PsoStarTplgy():
         self.num_particles = num_particles
         # Najlepsza pozycja roju
         self.g_pos_best = []
-        # Wartość funkcji dopasowania w najlepszej pozycji roju
+        # Wartość funkcji celu w najlepszej pozycji roju
         self.g_value_best = None
         # Rój
         self.swarm = []
@@ -43,7 +45,6 @@ class PsoStarTplgy():
     def main(self, iter):
         # Główna pętla
         #
-        # Przejdź przez wszystkie cząsteczki w roju i je przelicz
         for j in range(0, self.num_particles):
             self.swarm[j].evaluate(self.func)
 
@@ -52,22 +53,14 @@ class PsoStarTplgy():
                 self.g_pos_best = list(self.swarm[j].position)
                 self.g_value_best = float(self.swarm[j].value)
 
-        self.update_velocity_and_position()
+        self.update_velocity_and_position(iter)
 
-
-    def update_velocity_and_position(self):
-        # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
+    def update_velocity_and_position(self, iter):
+        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
         #
         global_neighborhood_pos = list(
             self.swarm[self.global_neighborhood_index].position)
 
         for i in range(0, self.num_particles):
-            self.swarm[i].update_velocity(global_neighborhood_pos)
+            self.swarm[i].update_velocity(global_neighborhood_pos, iter)
             self.swarm[i].update_position(self.bounds)
-
-    def print_solution(self):
-        # Wyświetl wyniki
-        #
-        print("Wyniki - Topologia gwiazdy")
-        print("  Najlepsze rozwiązanie: ", self.g_value_best)
-        print("  Najlepsza pozycja: ", self.g_pos_best)

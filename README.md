@@ -6,7 +6,6 @@
 
 ### Praca - aplikacja
 
-- ? Utworzyć interfejs dla metod PSO i Particlów
 - Sprawdzić poprawność zaimplementowanych metod
 - Zaimplementować własne modyfikację/rozszerzenie (współczynnika)
   \_

@@ -4,6 +4,8 @@ from pso.pso_particle import PsoParticle
 
 class PsoRingTplgy():
     def __init__(self, func, num_dimensions, bounds, num_particles, num_neighborhoods):
+        # Nazwa
+        self.name = "PSO - Topologia pierścienia"
         # Funkcja celu
         self.func = func
         # Liczba wymiarów
@@ -16,11 +18,11 @@ class PsoRingTplgy():
         self.num_neighborhoods = num_neighborhoods
         # Najlepsza pozycja roju
         self.g_pos_best = []
-        # Wartość funkcji dopasowania w najlepszej pozycji roju
+        # Wartość funkcji celu w najlepszej pozycji roju
         self.g_value_best = None
         # Rój
         self.swarm = []
-        
+
     def reset(self):
         # Reset wartości algorytmu
         #
@@ -41,7 +43,6 @@ class PsoRingTplgy():
     def main(self, iter):
         # Główna pętla
         #
-        # Przejdź przez wszystkie cząsteczki w roju i je przelicz
         for j in range(0, self.num_particles):
             self.swarm[j].evaluate(self.func)
 
@@ -50,11 +51,10 @@ class PsoRingTplgy():
                 self.g_pos_best = list(self.swarm[j].position)
                 self.g_value_best = float(self.swarm[j].value)
 
-        self.update_velocity_and_position()
+        self.update_velocity_and_position(iter)
 
-
-    def update_velocity_and_position(self):
-        # Przejdź przez wszystkie cząsteczki w roju i zaktualizuj prędkości i pozycje
+    def update_velocity_and_position(self, iter):
+        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
         #
         for i in range(0, self.num_particles):
             neighborhoods_pos_best = self.swarm[i].position
@@ -70,12 +70,5 @@ class PsoRingTplgy():
                 if self.swarm[index2].value < neighborhoods_value_best:
                     neighborhoods_pos_best = list(self.swarm[index2].position)
 
-            self.swarm[i].update_velocity(neighborhoods_pos_best)
+            self.swarm[i].update_velocity(neighborhoods_pos_best, iter)
             self.swarm[i].update_position(self.bounds)
-
-    def print_solution(self):
-        # Wyświetl wyniki
-        #
-        print("Wyniki - Topologia Pierścienia")
-        print("  Najlepsze rozwiązanie: ", self.g_value_best)
-        print("  Najlepsza pozycja: ", self.g_pos_best)
