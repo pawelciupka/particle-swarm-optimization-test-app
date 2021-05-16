@@ -5,7 +5,7 @@ from math import *
 # http://www.sfu.ca/~ssurjano/levy13.html
 def levy13():
     f = Function()
-    f.name = "LEVY FUNCTION N. 13"
+    f.name = "LEVY 13"
     f.solution = 0
     f.solution_position = [1, 1]
     f.num_dimensions = 2

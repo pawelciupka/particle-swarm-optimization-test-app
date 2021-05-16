@@ -5,7 +5,7 @@ from math import *
 # http://www.sfu.ca/~ssurjano/easom.html
 def easom():
     f = Function()
-    f.name = "EASOM FUNCTION"
+    f.name = "EASOM"
     f.solution = -1
     f.solution_position = [pi, pi]
     f.num_dimensions = 2

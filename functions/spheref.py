@@ -5,7 +5,7 @@ from math import *
 # http://www.sfu.ca/~ssurjano/spheref.html
 def spheref():
     f = Function()
-    f.name = "SPHERE FUNCTION"
+    f.name = "SPHERE"
     f.solution = 0
     f.solution_position = [0, 0]
     f.num_dimensions = 2

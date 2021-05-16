@@ -5,7 +5,7 @@ from pso.pso_particle import PsoParticle
 class PsoStarTplgy():
     def __init__(self, func, num_dimensions, bounds, num_particles):
         # Nazwa
-        self.name = "PSO - Topologia gwiazdy"
+        self.name = "PSO - Star"
         # Funkcja celu
         self.func = func
         # Liczba wymiarów

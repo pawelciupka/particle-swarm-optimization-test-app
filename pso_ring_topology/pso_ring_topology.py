@@ -5,7 +5,7 @@ from pso.pso_particle import PsoParticle
 class PsoRingTplgy():
     def __init__(self, func, num_dimensions, bounds, num_particles, num_neighborhoods):
         # Nazwa
-        self.name = "PSO - Topologia pierścienia"
+        self.name = "PSO - Ring"
         # Funkcja celu
         self.func = func
         # Liczba wymiarów

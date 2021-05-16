@@ -5,7 +5,7 @@ from math import *
 # http://www.sfu.ca/~ssurjano/beale.html
 def beale():
     f = Function()
-    f.name = "BEALE FUNCTION"
+    f.name = "BEALE"
     f.solution = 0
     f.solution_position = [3, 0.5]
     f.num_dimensions = 2

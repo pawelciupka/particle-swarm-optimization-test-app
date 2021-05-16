@@ -5,7 +5,7 @@ from math import *
 # http://www.sfu.ca/~ssurjano/boha.html
 def boha1():
     f = Function()
-    f.name = "BOHACHEVSKY FUNCTION 1"
+    f.name = "BOHACHEVSKY 1"
     f.solution = 0
     f.solution_position = [0, 0]
     f.num_dimensions = 2

@@ -5,7 +5,7 @@ from pso_selection.pso_selection_particle import PsoSelectionParticle
 class PsoSelection():
     def __init__(self, func, num_dimensions, bounds, num_particles, num_tournament_particles):
         # Nazwa
-        self.name = "PSO - Selekcja"
+        self.name = "PSO - Selection"
         # Funkcja celu
         self.func = func
         # Liczba wymiarów

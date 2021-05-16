@@ -5,7 +5,7 @@ from math import *
 # http://www.sfu.ca/~ssurjano/ackley.html
 def ackley():
     f = Function()
-    f.name = "ACKLEY FUNCTION"
+    f.name = "ACKLEY"
     f.solution = 0
     f.solution_position = [0, 0]
     f.num_dimensions = 2

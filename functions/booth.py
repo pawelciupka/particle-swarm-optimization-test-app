@@ -5,7 +5,7 @@ from math import *
 # http://www.sfu.ca/~ssurjano/booth.html
 def booth():
     f = Function()
-    f.name = "BOOTH FUNCTION"
+    f.name = "BOOTH"
     f.solution = 0
     f.solution_position = [1, 3]
     f.num_dimensions = 2

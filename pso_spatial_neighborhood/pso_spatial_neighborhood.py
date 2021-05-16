@@ -6,7 +6,7 @@ from pso.pso_particle import PsoParticle
 class PsoSpatialNeigh():
     def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
         # Nazwa
-        self.name = "PSO - Sąsiedztwo przestrzenne ze zmiennym progiem"
+        self.name = "PSO - Spatial"
         # Funkcja celu
         self.func = func
         # Liczba wymiarów
