@@ -19,4 +19,5 @@ def f_easom(position):
     x1, x2 = position
     fact1 = -cos(x1)*cos(x2)
     fact2 = exp(-(x1-pi)**2-(x2-pi)**2)
+
     return fact1*fact2

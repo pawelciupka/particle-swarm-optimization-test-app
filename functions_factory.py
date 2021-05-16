@@ -3,9 +3,9 @@ from functions.easom import *
 from functions.levy13 import *
 from functions.ackley import *
 from functions.crossit import *
-# from functions. import *
-# from functions. import *
-# from functions. import *
+from functions.boha1 import *
+from functions.spheref import *
+from functions.booth import *
 # from functions. import *
 # from functions. import *
 # from functions. import *

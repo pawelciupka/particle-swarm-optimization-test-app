@@ -29,7 +29,8 @@ class Main:
                 eval = Evaluator(func(), self.maxiter,
                                  self.num_runs, algorithm_obj)
                 eval.print_results()
-                self.add_to_export_results(func().name, algorithm_obj.name, eval.results())
+                self.add_to_export_results(
+                    func().name, algorithm_obj.name, eval.results())
         export_results(self.results)
 
     def add_to_export_results(self, func_name, algorithm_name, evaluation_results):
@@ -87,11 +88,18 @@ class Main:
         # Zmodyfikuj listę funkcji by wybrać te, które chcesz testować
         #
         functions = []
-        functions.append(beale)
+        # Many Local Minima
+        # functions.append(ackley)
+        # functions.append(levy13)
+        # functions.append(crossit)
+        # Bowl-Shaped
+        functions.append(boha1)
+        # Plate-Shaped
+        functions.append(booth)
+        # Steep Ridges/Drops
         functions.append(easom)
-        functions.append(levy13)
-        functions.append(ackley)
-        functions.append(crossit)
+        # Other
+        functions.append(beale)
         return functions
 
 
