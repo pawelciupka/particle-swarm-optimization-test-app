@@ -55,7 +55,7 @@ class PsoSpatialNeigh():
         self.update_velocity_and_position(iter)
 
     def update_velocity_and_position(self, iter):
-        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
+        # Aktualizacja prędkości i pozycji wszystkich cząsteczek w roju
         #
         # Maksymalna odległość pomiędzy cząsteczkami w roju
         max_distance = self.get_max_distance_between_particles()
@@ -75,6 +75,7 @@ class PsoSpatialNeigh():
                     # Sprawdź czy wartość cząsteczki jest mniejsza niż najmniejsza wartość cząsteczki sąsiadów
                     if self.swarm[j].value < neighborhoods_value_best:
                         neighborhoods_pos_best = list(self.swarm[j].position)
+                        neighborhoods_value_best = self.swarm[j].value
 
             self.swarm[i].update_velocity(neighborhoods_pos_best, iter)
             self.swarm[i].update_position(self.bounds)
@@ -99,7 +100,9 @@ class PsoSpatialNeigh():
     def calculate_neighborhood_parameter(self, max_distance, particle1, particle2):
         # Oblicz parametr sąsiedztwa
         #
-        return self.calculate_distance(particle1, particle2) / max_distance
+        if max_distance != 0:
+            return self.calculate_distance(particle1, particle2) / max_distance
+        return 0
 
     def calculate_floating_threshold_value(self, iter):
         # Oblicz zmienną wartość progową sąsiedztwa

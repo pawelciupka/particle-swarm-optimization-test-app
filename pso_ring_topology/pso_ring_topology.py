@@ -54,7 +54,7 @@ class PsoRingTplgy():
         self.update_velocity_and_position(iter)
 
     def update_velocity_and_position(self, iter):
-        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
+        # Aktualizacja prędkości i pozycji wszystkich cząsteczek w roju
         #
         for i in range(0, self.num_particles):
             neighborhoods_pos_best = self.swarm[i].position

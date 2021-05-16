@@ -79,9 +79,9 @@ class Main:
         algorithms = []
         algorithms.append(self.pso)
         algorithms.append(self.pso_ring_topology)
-        # algorithms.append(self.pso_spatial_neighborhood)
-        # algorithms.append(self.pso_star_topology)
-        algorithms.append(self.pso_selection)
+        algorithms.append(self.pso_spatial_neighborhood)
+        algorithms.append(self.pso_star_topology)
+        # algorithms.append(self.pso_selection)
         return algorithms
 
     def functions(self):
@@ -89,9 +89,9 @@ class Main:
         #
         functions = []
         # Many Local Minima
-        # functions.append(ackley)
-        # functions.append(levy13)
-        # functions.append(crossit)
+        functions.append(ackley)
+        functions.append(levy13)
+        functions.append(crossit)
         # Bowl-Shaped
         functions.append(boha1)
         # Plate-Shaped

@@ -40,7 +40,8 @@ class PsoStarTplgy():
                     self.bounds[0], self.bounds[1]))
             self.swarm.append(PsoParticle(initial_pos))
 
-        self.global_neighborhood_index = random.randint(0, self.num_particles)
+        self.global_neighborhood_index = random.randint(
+            0, self.num_particles-1)
 
     def main(self, iter):
         # Główna pętla
@@ -56,11 +57,16 @@ class PsoStarTplgy():
         self.update_velocity_and_position(iter)
 
     def update_velocity_and_position(self, iter):
-        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
+        # Aktualizacja prędkości i pozycji wszystkich cząsteczek w roju
         #
         global_neighborhood_pos = list(
             self.swarm[self.global_neighborhood_index].position)
 
+        # Zaktualizuj prędkość i pozycję globalnego sąsiada korzystając z najlepszego znalezionego rozwiązania
+        self.swarm[self.global_neighborhood_index].update_velocity(self.g_pos_best, iter)
+        self.swarm[self.global_neighborhood_index].update_position(self.bounds)
+
         for i in range(0, self.num_particles):
-            self.swarm[i].update_velocity(global_neighborhood_pos, iter)
-            self.swarm[i].update_position(self.bounds)
+            if i != self.global_neighborhood_index:
+                self.swarm[i].update_velocity(global_neighborhood_pos, iter)
+                self.swarm[i].update_position(self.bounds)

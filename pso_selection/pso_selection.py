@@ -82,7 +82,7 @@ class PsoSelection():
             self.swarm[i+half_swarm].position = self.swarm[i].position
 
     def update_velocity_and_position(self, iter):
-        # Zaktualizuj prędkości i pozycje wszystkich cząsteczek w roju
+        # Aktualizacja prędkości i pozycji wszystkich cząsteczek w roju
         #
         for i in range(0, self.num_particles):
             self.swarm[i].update_velocity(self.g_pos_best, iter)
