@@ -1,4 +1,4 @@
-import math
+from math import *
 
 
 # - Wektor musi składać się z 3 współczynników
@@ -10,8 +10,12 @@ def inertia_coefficient(iter=0):
 
 
 def cognitive_coefficient(iter=0):
-    return 1
+    return 1.2
 
 
 def social_coefficient(iter=0):
-    return 2
+    return 4 - cognitive_coefficient(iter)
+    if iter > 0:
+        return log(iter)
+    else:
+        return 1

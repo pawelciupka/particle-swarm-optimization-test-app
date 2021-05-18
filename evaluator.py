@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Evaluator:
     def __init__(self, func, maxiter, num_runs, algorithm):
         # Funkcja
@@ -14,8 +17,16 @@ class Evaluator:
         self.num_successful_runs = 0
         # Iteracje, w których znaleziono rozwiązanie
         self.successful_runs_iters = []
+        # Przewidywane najlepsze rozwiązania
+        self.predictions = []
+        # Znalezione najlepsze rozwiązania
+        self.actuals = []
 
-        self.precision = 1
+        self.stop_precision = 4
+        self.result_precision = 3
+
+        for i in range(0, self.num_runs):
+            self.predictions.append(self.func.solution)
 
         self.main()
 
@@ -25,13 +36,15 @@ class Evaluator:
         # 2. Jeżeli zostanie znalezione rozwiązanie
         #
         if iter < self.maxiter:
-            if self.algorithm.g_value_best != None and round(self.func.solution, self.precision) == round(self.algorithm.g_value_best, self.precision):
+            if self.algorithm.g_value_best != None and round(self.func.solution, self.stop_precision) == round(self.algorithm.g_value_best, self.stop_precision):
                 self.num_successful_runs += 1
                 self.successful_runs_iters.append(iter)
+                self.actuals.append(self.algorithm.g_value_best)
                 return False
             else:
                 return True
         else:
+            self.actuals.append(self.algorithm.g_value_best)
             return False
 
     def main(self):
@@ -50,7 +63,7 @@ class Evaluator:
     def efficiency(self):
         # Skuteczność = liczba pomyślnie zakończonych uruchomień / liczba uruchomień
         #
-        return self.num_successful_runs / self.num_runs
+        return round(self.num_successful_runs / self.num_runs, self.result_precision)
 
     def avg_successful_iters(self):
         # Średnia liczba iteracji w pomyślnie zakończonych uruchomieniach
@@ -59,9 +72,21 @@ class Evaluator:
             sum_iters = 0
             for iters in self.successful_runs_iters:
                 sum_iters += iters
-            return sum_iters / len(self.successful_runs_iters)
+            return round(sum_iters / len(self.successful_runs_iters), self.result_precision)
         else:
             return 0
+
+    def mse(self):
+        # Mean Squared Error
+        #
+        actual, pred = np.array(self.actuals), np.array(self.predictions)
+        return round(np.square(np.subtract(actual, pred)).mean(), self.result_precision)
+
+    def rmse(self):
+        # Root mean squared error
+        #
+        actual, pred = np.array(self.actuals), np.array(self.predictions)
+        return round(np.sqrt(np.square(np.subtract(actual, pred)).mean()), self.result_precision)
 
     def results(self):
         # Rezultaty
@@ -76,4 +101,6 @@ class Evaluator:
         print("  Skuteczność: ", self.efficiency())
         print("  Średnia liczba potrzebnych iteracji ",
               self.avg_successful_iters())
+        print("  MSE: ", self.mse())
+        print("  RMSE: ", self.rmse())
         print()
