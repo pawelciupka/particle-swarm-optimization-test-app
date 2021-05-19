@@ -92,6 +92,7 @@ class Main:
         functions.append(ackley)
         functions.append(levy13)
         functions.append(crossit)
+        functions.append(griewank)
         # Bowl-Shaped
         functions.append(boha1)
         # Plate-Shaped

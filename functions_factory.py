@@ -6,7 +6,7 @@ from functions.crossit import *
 from functions.boha1 import *
 from functions.spheref import *
 from functions.booth import *
-# from functions. import *
+from functions.griewank import *
 # from functions. import *
 # from functions. import *
 # from functions. import *

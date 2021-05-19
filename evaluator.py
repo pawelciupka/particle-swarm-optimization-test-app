@@ -91,7 +91,7 @@ class Evaluator:
     def results(self):
         # Rezultaty
         #
-        return [self.efficiency(), self.avg_successful_iters()]
+        return [self.efficiency(), self.avg_successful_iters(), self.mse(), self.rmse()]
 
     def print_results(self):
         # Wyświetlanie rezultatów

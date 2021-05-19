@@ -17,5 +17,5 @@ def export_results(results, filename="results"):
     # Eksportuj rezultaty do excela
     #
     df = pd.DataFrame(results, columns=[
-                      "Metoda", "Funkcja", "Skuteczność", "Średnia liczba iteracji"])
+                      "Metoda", "Funkcja", "Skuteczność", "Średnia liczba iteracji", "MSE", "RMSE"])
     df.to_excel(excel_writer="./results/"+filename+".xlsx")
