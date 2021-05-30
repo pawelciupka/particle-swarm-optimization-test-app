@@ -3,12 +3,13 @@ from math import *
 
 
 # http://www.sfu.ca/~ssurjano/ackley.html
+# num_dimension = 1,...,d
 def ackley():
     f = Function()
     f.name = "ACKLEY"
     f.solution = 0
     f.solution_position = [0, 0]
-    f.num_dimensions = 2
+    f.num_dimensions = 5
     f.bounds = [-32.768, 32.768]
     f.func = f_ackley
     # f.print_solution()

@@ -89,20 +89,25 @@ class Main:
         #
         functions = []
         # Many Local Minima
-        functions.append(ackley)
-        functions.append(levy13)
-        functions.append(crossit)
-        functions.append(griewank)
-        # Bowl-Shaped
-        functions.append(boha1)
-        # Plate-Shaped
-        functions.append(booth)
-        # Steep Ridges/Drops
-        functions.append(easom)
-        # Other
-        functions.append(beale)
+        functions.append(ackley)        # Wiele wymiarów
+        functions.append(griewank)      # Wiele wymiarów
+        # functions.append(crossit)     # Dwa wymiary
+        # functions.append(levy13)      # Dwa wymiary
+        functions.append(levy)          # Wiele wymiarów
+        functions.append(rastrigin)     # Wiele wymiarów
+        functions.append(schwefel)      # Wiele wymiarów
+        # # Bowl-Shaped
+        # functions.append(boha1)       # Dwa wymiary
+        # # Plate-Shaped
+        # functions.append(booth)       # Dwa wymiary
+        # # Steep Ridges/Drops
+        # functions.append(easom)       # Dwa wymiary
+        # # Other
+        # functions.append(beale)       # Dwa wymiary
         return functions
 
 
 main = Main()
 main.main()
+
+# print(f_griewank([0,0]))

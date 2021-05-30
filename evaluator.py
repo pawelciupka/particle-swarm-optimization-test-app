@@ -39,12 +39,14 @@ class Evaluator:
             if self.algorithm.g_value_best != None and round(self.func.solution, self.stop_precision) == round(self.algorithm.g_value_best, self.stop_precision):
                 self.num_successful_runs += 1
                 self.successful_runs_iters.append(iter)
-                self.actuals.append(self.algorithm.g_value_best)
+                self.actuals.append(
+                    round(self.algorithm.g_value_best, self.stop_precision))
                 return False
             else:
                 return True
         else:
-            self.actuals.append(self.algorithm.g_value_best)
+            self.actuals.append(
+                round(self.algorithm.g_value_best, self.stop_precision))
             return False
 
     def main(self):
@@ -108,4 +110,5 @@ class Evaluator:
     def print_short_results(self):
         # Wyświetlanie rezultatów
         #
-        print(self.algorithm.name + ' | ' + self.func.name + ' | ' + str(self.efficiency()) + ' | ')
+        print(self.algorithm.name + ' | ' + self.func.name + ' | ' + str(self.efficiency()) +
+              ' | ' + str(self.rmse()) + ' | ' + str(self.actuals))

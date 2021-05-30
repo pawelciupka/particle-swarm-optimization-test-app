@@ -2,14 +2,15 @@ import json
 import pandas as pd
 
 
-def load_configuration():
+def load_configuration(do_print=False):
     # Wczytaj parametry konfiguracyjne
     #
     with open("config.json", "r") as read_file:
         config = json.load(read_file)
-    for key, value in config.items():
-        print(key, ":", value)
-    print("\n")
+    if do_print:
+        for key, value in config.items():
+            print(key, ":", value)
+        print("\n")
     return config
 
 
