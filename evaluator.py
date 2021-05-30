@@ -104,3 +104,8 @@ class Evaluator:
         print("  MSE: ", self.mse())
         print("  RMSE: ", self.rmse())
         print()
+
+    def print_short_results(self):
+        # Wyświetlanie rezultatów
+        #
+        print(self.algorithm.name + ' | ' + self.func.name + ' | ' + str(self.efficiency()) + ' | ')

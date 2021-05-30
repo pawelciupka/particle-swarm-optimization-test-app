@@ -28,7 +28,7 @@ class Main:
                 algorithm_obj = algorithm(func())
                 eval = Evaluator(func(), self.maxiter,
                                  self.num_runs, algorithm_obj)
-                eval.print_results()
+                eval.print_short_results()
                 self.add_to_export_results(
                     func().name, algorithm_obj.name, eval.results())
         export_results(self.results)

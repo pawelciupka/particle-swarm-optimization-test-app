@@ -6,7 +6,6 @@
 
 ### Praca - aplikacja
 
-- Zaimplementować własne modyfikację/rozszerzenie (współczynnika)
 
 ### Praca - tekst
 
@@ -24,7 +23,7 @@
 
 ## IN PROGRESS
 
-- Implementacja modyfikacji/rozszerzeń metody PSO
+- Zaimplementować własne modyfikację/rozszerzenie (współczynnika)
 
 ---
 
@@ -39,3 +38,4 @@
   Topologia gwiazdy (modyfikacja sąsiedztwa)
   Selekcja (operatory ewolucyjne)
 - Zaimplementowano evaluator z warunkiem stopu, który określa skuteczność badanej metody
+- Implementacja modyfikacji/rozszerzeń metody PSO
