@@ -17,27 +17,40 @@ class Main:
         self.num_runs = config["num_runs"]
         self.num_neighborhoods = config["num_neighborhoods"]
         self.num_tournament_particles = config["num_tournament_particles"]
-
         self.results = []
 
     def main(self):
         # Główny punkt aplikacji
         #
+        # Wykonaj dla wszystkich wybranych algorytmów
+        Evaluator.print_short_results_header()
+
         for algorithm in self.algorithms():
+            # Wykonaj dla wszystkich wybranych funkcji celu
             for func in self.functions():
+                # Wykonaj ewaluacje
                 algorithm_obj = algorithm(func())
                 eval = Evaluator(func(), self.maxiter,
                                  self.num_runs, algorithm_obj)
                 eval.print_short_results()
+                # eval.print_results()
+
+                # Dodaj wyniki do excela
                 self.add_to_export_results(
                     func().name, algorithm_obj.name, eval.results())
+
+        # Wyeksportuj wyniki do excela
         export_results(self.results)
 
     def add_to_export_results(self, func_name, algorithm_name, evaluation_results):
+        # Dodaj wyniki do excela
+        #
         result = [algorithm_name, func_name]
         for r in evaluation_results:
             result.append(r)
         self.results.append(result)
+
+
 
     def pso(self, function):
         # Klasyczny algorytm PSO
@@ -69,12 +82,14 @@ class Main:
         return PsoSelection(func=function.func, num_dimensions=function.num_dimensions, bounds=function.bounds,
                             num_particles=self.num_particles, num_tournament_particles=self.num_tournament_particles)
 
+
+
     ###
     # Metody, służące do wybrania testowanych algorytmów, funkcji
     ###
 
     def algorithms(self):
-        # Zmodyfikuj listę metod, by wybrać te, które chcesz testować
+        # Wybierz algorytmy, które zostaną przetestowane
         #
         algorithms = []
         algorithms.append(self.pso)
@@ -85,7 +100,7 @@ class Main:
         return algorithms
 
     def functions(self):
-        # Zmodyfikuj listę funkcji by wybrać te, które chcesz testować
+        # Wybierz funkcje celu, które zostaną przetestowane
         #
         functions = []
         # Many Local Minima
@@ -109,5 +124,3 @@ class Main:
 
 main = Main()
 main.main()
-
-# print(f_griewank([0,0]))

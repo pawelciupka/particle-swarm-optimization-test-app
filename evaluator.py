@@ -1,4 +1,5 @@
 import numpy as np
+import datetime
 
 
 class Evaluator:
@@ -20,7 +21,11 @@ class Evaluator:
         # Przewidywane najlepsze rozwiązania
         self.predictions = []
         # Znalezione najlepsze rozwiązania
-        self.actuals = []
+        self.best_solutions = []
+        # Znalezione najgorsze rozwiązania
+        self.worst_solutions = []
+        # Czasy działania algorytmów
+        self.durations = []
 
         self.stop_precision = 4
         self.result_precision = 3
@@ -37,30 +42,46 @@ class Evaluator:
         #
         if iter < self.maxiter:
             if self.algorithm.g_value_best != None and round(self.func.solution, self.stop_precision) == round(self.algorithm.g_value_best, self.stop_precision):
+                # Zwiększ liczbe pomyślnie zakończonych testów
                 self.num_successful_runs += 1
+                # Dodaj liczbe iteracji do listy z liczbą iteracji pomyślnie zakończonych testów
                 self.successful_runs_iters.append(iter)
-                self.actuals.append(
+                # Dodaj najlepsze rozwiązanie do listy najlepszych rozwiązań
+                self.best_solutions.append(
                     round(self.algorithm.g_value_best, self.stop_precision))
+                # Dodaj najgorsze rozwiązanie do listy najgorszych rozwiązań
+                self.worst_solutions.append(
+                    round(self.algorithm.g_value_worst, self.stop_precision))
                 return False
             else:
                 return True
         else:
-            self.actuals.append(
+            # Dodaj najlepsze rozwiązanie do listy najlepszych rozwiązań
+            self.best_solutions.append(
                 round(self.algorithm.g_value_best, self.stop_precision))
+            # Dodaj najgorsze rozwiązanie do listy najgorszych rozwiązań
+            self.worst_solutions.append(
+                round(self.algorithm.g_value_worst, self.stop_precision))
             return False
 
     def main(self):
         # Główna pętla
         #
         for run in range(0, self.num_runs):
-            # Reset przed ponownym uruchomieniem
+            # Zresetuj algorytm przed ponownym uruchomieniem testu
             iter = 0
             self.algorithm.reset()
             self.algorithm.init_swarm()
 
+            # Rozpocznij pomiar czasu
+            start = datetime.datetime.now()
+
             while self.stop_condition(iter):
                 self.algorithm.main(iter)
                 iter += 1
+
+            # Zakończ pomiar czasu
+            self.durations.append(datetime.datetime.now() - start)
 
     def efficiency(self):
         # Skuteczność = liczba pomyślnie zakończonych uruchomień / liczba uruchomień
@@ -78,37 +99,86 @@ class Evaluator:
         else:
             return 0
 
+    def avg_best_solutions(self):
+        # Średnia wartość najlepszych osobników
+        #
+        return round(np.array(self.best_solutions).mean(), self.result_precision)
+
+    def best_solution(self):
+        # Najlepsza wartość osobnika
+        #
+        return sorted(self.best_solutions)[0]
+
+    def worst_solution(self):
+        # Najgorsza wartość osobnika
+        #
+        return sorted(self.worst_solutions, reverse=True)[0]
+
+    def std(self):
+        # Odchylenie standardowe
+        #
+        return round(np.std(self.best_solutions), self.result_precision)
+
+    def median(self):
+        # Mediana
+        #
+        return round(np.median(self.best_solutions), self.result_precision)
+
+    def avg_duration(self):
+        # Średni czas działania algorytmu
+        #
+        return round(np.array(self.durations).mean().total_seconds(), self.result_precision)
+
     def mse(self):
         # Mean Squared Error
         #
-        actual, pred = np.array(self.actuals), np.array(self.predictions)
+        actual, pred = np.array(
+            self.best_solutions), np.array(self.predictions)
         return round(np.square(np.subtract(actual, pred)).mean(), self.result_precision)
 
     def rmse(self):
         # Root mean squared error
         #
-        actual, pred = np.array(self.actuals), np.array(self.predictions)
+        actual, pred = np.array(
+            self.best_solutions), np.array(self.predictions)
         return round(np.sqrt(np.square(np.subtract(actual, pred)).mean()), self.result_precision)
 
     def results(self):
-        # Rezultaty
+        # Zbierz wszystkie rezultaty, które mają być wyeksportowane do excela
         #
-        return [self.efficiency(), self.avg_successful_iters(), self.mse(), self.rmse()]
+        return [self.efficiency(), self.avg_successful_iters(), self.avg_best_solutions(), self.best_solution(), self.worst_solution(), self.std(), self.median(), self.avg_duration()]
 
     def print_results(self):
-        # Wyświetlanie rezultatów
+        # Wyświetl wyniki
         #
         print("Algorytm: ", self.algorithm.name)
         print("Funkcja:  ", self.func.name)
-        print("  Skuteczność: ", self.efficiency())
-        print("  Średnia liczba potrzebnych iteracji ",
-              self.avg_successful_iters())
-        print("  MSE: ", self.mse())
-        print("  RMSE: ", self.rmse())
+        print("  Skuteczność:                  ", self.efficiency())
+        print("  Średnia liczba iteracji       ", self.avg_successful_iters())
+        print("  Średnia najlepszych wartości  ", self.avg_best_solutions())
+        print("  Najlepsza znaleziona wartość  ", self.best_solution())
+        print("  Najgorsza znaleziona wartość  ", self.worst_solution())
+        print("  Odchylenie standardowe        ", self.std())
+        print("  Mediana                       ", self.median())
+        print("  Średni czas wykonywania [sec] ", self.avg_duration())
         print()
 
-    def print_short_results(self):
-        # Wyświetlanie rezultatów
+    @staticmethod
+    def print_short_results_header():
+        # Wyświetl nagłówek krótkich wyników
         #
-        print(self.algorithm.name + ' | ' + self.func.name + ' | ' + str(self.efficiency()) +
-              ' | ' + str(self.rmse()) + ' | ' + str(self.actuals))
+        print("Algorytm | Funkcja | Skuteczność | Avg Iters | Avg Best | Best | Std | Median | Avg Time")
+
+    def print_short_results(self):
+        # Wyświetl krótkie wyniki
+        #
+        print(
+            self.algorithm.name + ' | ' + 
+            self.func.name + ' | ' + 
+            str(self.efficiency()) + ' | ' + 
+            str(self.avg_successful_iters()) + ' | ' +
+            str(self.avg_best_solutions()) + ' | ' + 
+            str(self.best_solution()) + ' | ' + 
+            str(self.std()) + ' | ' + 
+            str(self.median()) + ' | ' + 
+            str(self.avg_duration()))

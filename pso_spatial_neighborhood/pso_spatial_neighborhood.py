@@ -1,61 +1,17 @@
-import random
-import math
-from pso.pso_particle import PsoParticle
+from pso_parent.pso_parent import PsoParent
+from math import *
 
 
-class PsoSpatialNeigh():
+class PsoSpatialNeigh(PsoParent):
     def __init__(self, func, num_dimensions, bounds, num_particles, maxiter):
-        # Nazwa
-        self.name = "PSO - Spatial"
-        # Funkcja celu
-        self.func = func
-        # Liczba wymiarów
-        self.num_dimensions = num_dimensions
-        # Graniczne wartości cząstek
-        self.bounds = bounds
-        # Liczba cząsteczek
-        self.num_particles = num_particles
         # Liczba iteracji
         self.maxiter = maxiter
-        # Najlepsza pozycja roju
-        self.g_pos_best = []
-        # Wartość funkcji celu w najlepszej pozycji roju
-        self.g_value_best = None
-        # Rój
-        self.swarm = []
 
-    def reset(self):
-        # Reset wartości algorytmu
-        #
-        self.g_pos_best = []
-        self.g_value_best = None
-        self.swarm = []
-
-    def init_swarm(self):
-        # Inicjalizacja roju
-        #
-        for i in range(0, self.num_particles):
-            initial_pos = []
-            for j in range(0, self.num_dimensions):
-                initial_pos.append(random.uniform(
-                    self.bounds[0], self.bounds[1]))
-            self.swarm.append(PsoParticle(initial_pos))
-
-    def main(self, iter):
-        # Główna pętla
-        #
-        for j in range(0, self.num_particles):
-            self.swarm[j].evaluate(self.func)
-
-            # Sprawdź, czy aktualna cząsteczka jest najlepsza
-            if self.g_value_best == None or self.swarm[j].value < self.g_value_best:
-                self.g_pos_best = list(self.swarm[j].position)
-                self.g_value_best = float(self.swarm[j].value)
-
-        self.update_velocity_and_position(iter)
+        super(PsoSpatialNeigh, self).__init__("PSO - Spatial Neighborhood", func,
+                                              num_dimensions, bounds, num_particles)
 
     def update_velocity_and_position(self, iter):
-        # Aktualizacja prędkości i pozycji wszystkich cząsteczek w roju
+        # Zaktualizuj prędkość i pozycję wszystkich cząsteczek w roju
         #
         # Maksymalna odległość pomiędzy cząsteczkami w roju
         max_distance = self.get_max_distance_between_particles()
@@ -65,7 +21,8 @@ class PsoSpatialNeigh():
         for i in range(0, self.num_particles):
             neighborhoods_pos_best = list(self.swarm[i].position)
             neighborhoods_value_best = self.swarm[i].value
-            # Przejdź przez wszystkie inne cząsteczki w roju w poszukiwaniu sąsiadów
+
+            # Przeszukaj wszystkich sąsiadów
             for j in range(0, self.num_particles):
                 if i == j:
                     continue
@@ -83,7 +40,7 @@ class PsoSpatialNeigh():
     def calculate_distance(self, particle1, particle2):
         # Oblicz odległość pomiędzy cząsteczkami
         #
-        return math.dist(list(particle1.position), list(particle2.position))
+        return dist(list(particle1.position), list(particle2.position))
 
     def get_max_distance_between_particles(self):
         # Znajdź maksymalną odległość pomiędzy cząsteczkami w roju
