@@ -1,3 +1,4 @@
+from plot_result import PlotResult
 from functions_factory import *
 from helper import *
 from evaluator import Evaluator
@@ -11,13 +12,13 @@ from pso_selection.pso_selection import PsoSelection
 class Main:
     def __init__(self, ):
         config = load_configuration()
-
         self.num_particles = config["num_particles"]
         self.maxiter = config["maxiter"]
         self.num_runs = config["num_runs"]
         self.num_neighborhoods = config["num_neighborhoods"]
         self.num_tournament_particles = config["num_tournament_particles"]
         self.results = []
+        self.avg_best_solutions_per_iteration = []
 
     def main(self):
         # Główny punkt aplikacji
@@ -26,7 +27,6 @@ class Main:
         Evaluator.print_short_results_header()
 
         for algorithm in self.algorithms():
-            # Wykonaj dla wszystkich wybranych funkcji celu
             for func in self.functions():
                 # Wykonaj ewaluacje
                 algorithm_obj = algorithm(func())
@@ -39,8 +39,19 @@ class Main:
                 self.add_to_export_results(
                     func().name, algorithm_obj.name, eval.results())
 
+                # Dodaj listę średnich rozwiązać per iteracja
+                plot_result = PlotResult(
+                    algorithm_obj, func(), eval.avg_best_solutions_per_iteration())
+                self.avg_best_solutions_per_iteration.append(plot_result)
+
         # Wyeksportuj wyniki do excela
         export_results(self.results)
+
+        # Wyświetl wykresy z wynikami
+        plot_results_per_algorithm(
+            self.uniques_algorithms(), self.avg_best_solutions_per_iteration)
+        plot_results_per_function(
+            self.uniques_functions(), self.avg_best_solutions_per_iteration)
 
     def add_to_export_results(self, func_name, algorithm_name, evaluation_results):
         # Dodaj wyniki do excela
@@ -49,8 +60,6 @@ class Main:
         for r in evaluation_results:
             result.append(r)
         self.results.append(result)
-
-
 
     def pso(self, function):
         # Klasyczny algorytm PSO
@@ -82,8 +91,6 @@ class Main:
         return PsoSelection(func=function.func, num_dimensions=function.num_dimensions, bounds=function.bounds,
                             num_particles=self.num_particles, num_tournament_particles=self.num_tournament_particles)
 
-
-
     ###
     # Metody, służące do wybrania testowanych algorytmów, funkcji
     ###
@@ -93,11 +100,19 @@ class Main:
         #
         algorithms = []
         algorithms.append(self.pso)
-        # algorithms.append(self.pso_ring_topology)
-        # algorithms.append(self.pso_spatial_neighborhood)
-        # algorithms.append(self.pso_star_topology)
-        # algorithms.append(self.pso_selection)
+        algorithms.append(self.pso_ring_topology)
+        algorithms.append(self.pso_spatial_neighborhood)
+        algorithms.append(self.pso_star_topology)
+        algorithms.append(self.pso_selection)
         return algorithms
+
+    def uniques_algorithms(self):
+        res = []
+        func = self.uniques_functions()[0]
+        for algorithm in self.algorithms():
+            algorithm_obj = algorithm(func)
+            res.append(algorithm_obj)
+        return res
 
     def functions(self):
         # Wybierz funkcje celu, które zostaną przetestowane
@@ -105,21 +120,27 @@ class Main:
         functions = []
         # Many Local Minima
         functions.append(ackley)        # Wiele wymiarów
-        functions.append(griewank)      # Wiele wymiarów
+        # functions.append(griewank)      # Wiele wymiarów
         # functions.append(crossit)     # Dwa wymiary
         # functions.append(levy13)      # Dwa wymiary
-        functions.append(levy)          # Wiele wymiarów
-        functions.append(rastrigin)     # Wiele wymiarów
-        functions.append(schwefel)      # Wiele wymiarów
-        # # Bowl-Shaped
+        # functions.append(levy)          # Wiele wymiarów
+        # functions.append(rastrigin)     # Wiele wymiarów
+        # functions.append(schwefel)      # Wiele wymiarów
+        # # # Bowl-Shaped
         # functions.append(boha1)       # Dwa wymiary
-        # # Plate-Shaped
+        # # # Plate-Shaped
         # functions.append(booth)       # Dwa wymiary
-        # # Steep Ridges/Drops
+        # # # Steep Ridges/Drops
         # functions.append(easom)       # Dwa wymiary
-        # # Other
+        # # # Other
         # functions.append(beale)       # Dwa wymiary
         return functions
+
+    def uniques_functions(self):
+        res = []
+        for function in self.functions():
+            res.append(function())
+        return res
 
 
 main = Main()

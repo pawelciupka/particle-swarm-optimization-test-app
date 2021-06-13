@@ -8,7 +8,7 @@ class PsoStarTplgy(PsoParent):
         # Indeks cząsteczki, która jest sąsiadem wszystkich cząsteczek w roju
         self.global_neighborhood_index = None
 
-        super(PsoStarTplgy, self).__init__("PSO - Start Topology", func,
+        super(PsoStarTplgy, self).__init__("PSO - Star Topology", func,
                                            num_dimensions, bounds, num_particles)
 
     def init_swarm(self):

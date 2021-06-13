@@ -26,6 +26,8 @@ class Evaluator:
         self.worst_solutions = []
         # Czasy działania algorytmów
         self.durations = []
+        # Najlepsze wartości algorytmu dla poszczególnych iteracji
+        self.best_solutions_per_iteration = []
 
         self.stop_precision = 4
         self.result_precision = 3
@@ -73,11 +75,14 @@ class Evaluator:
             self.algorithm.reset()
             self.algorithm.init_swarm()
 
+            self.best_solutions_per_iteration.append([])
+
             # Rozpocznij pomiar czasu
             start = datetime.datetime.now()
 
             while self.stop_condition(iter):
                 self.algorithm.main(iter)
+                self.best_solutions_per_iteration[run].append(self.algorithm.g_value_best)
                 iter += 1
 
             # Zakończ pomiar czasu
@@ -147,6 +152,23 @@ class Evaluator:
         # Zbierz wszystkie rezultaty, które mają być wyeksportowane do excela
         #
         return [self.efficiency(), self.avg_successful_iters(), self.avg_best_solutions(), self.best_solution(), self.worst_solution(), self.std(), self.median(), self.avg_duration()]
+
+    def avg_best_solutions_per_iteration(self):
+        # Zbierz średnie wartości najlepszych rozwiązań dla wszystkich uruchomień algorytmu
+        #
+        result = []
+        # Zsumuj najlepszą wartość cząsteczki w roju w każdej iteracji ze wszystkich uruchomień algorytmu 
+        for iteration in range(0, self.maxiter):
+            iteration_sum = 0
+            for run in self.best_solutions_per_iteration:
+                try:
+                    iteration_sum += run[iteration]
+                except:
+                    iteration_sum += run[-1]
+                
+            # Podziel obliczoną sumę przez ilość uruchomień
+            result.append(round(iteration_sum/self.num_runs, self.result_precision))
+        return result
 
     def print_results(self):
         # Wyświetl wyniki
