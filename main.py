@@ -48,8 +48,8 @@ class Main:
         export_results(self.results)
 
         # Wyświetl wykresy z wynikami
-        plot_results_per_algorithm(
-            self.uniques_algorithms(), self.avg_best_solutions_per_iteration)
+        # plot_results_per_algorithm(
+        #     self.uniques_algorithms(), self.avg_best_solutions_per_iteration)
         plot_results_per_function(
             self.uniques_functions(), self.avg_best_solutions_per_iteration)
 
@@ -120,20 +120,20 @@ class Main:
         functions = []
         # Many Local Minima
         functions.append(ackley)        # Wiele wymiarów
-        # functions.append(griewank)      # Wiele wymiarów
-        # functions.append(crossit)     # Dwa wymiary
-        # functions.append(levy13)      # Dwa wymiary
-        # functions.append(levy)          # Wiele wymiarów
-        # functions.append(rastrigin)     # Wiele wymiarów
-        # functions.append(schwefel)      # Wiele wymiarów
-        # # # Bowl-Shaped
-        # functions.append(boha1)       # Dwa wymiary
-        # # # Plate-Shaped
-        # functions.append(booth)       # Dwa wymiary
-        # # # Steep Ridges/Drops
-        # functions.append(easom)       # Dwa wymiary
-        # # # Other
-        # functions.append(beale)       # Dwa wymiary
+        functions.append(griewank)      # Wiele wymiarów
+        functions.append(crossit)     # Dwa wymiary
+        functions.append(levy13)      # Dwa wymiary
+        functions.append(levy)          # Wiele wymiarów
+        functions.append(rastrigin)     # Wiele wymiarów
+        functions.append(schwefel)      # Wiele wymiarów
+        # Bowl-Shaped
+        functions.append(boha1)       # Dwa wymiary
+        # Plate-Shaped
+        functions.append(booth)       # Dwa wymiary
+        # Steep Ridges/Drops
+        functions.append(easom)       # Dwa wymiary
+        # Other
+        functions.append(beale)       # Dwa wymiary
         return functions
 
     def uniques_functions(self):
