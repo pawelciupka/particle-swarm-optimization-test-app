@@ -3,14 +3,14 @@ from math import *
 
 
 # http://www.sfu.ca/~ssurjano/schwef.html
-# num_dimension = 1,...,d
 def schwefel():
     f = Function()
     f.name = "SCHWEFEL"
     f.solution = 0
     f.solution_position = [420.9687, 420.9687]
-    f.num_dimensions = 5
+    f.num_dimensions = 30           # get only if config nun_dimensions is equal to 0
     f.bounds = [-500, 500]
+    f.accuracy = 0.000001
     f.func = f_schwefel
     # f.print_solution()
     return f

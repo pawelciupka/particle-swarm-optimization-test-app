@@ -12,6 +12,7 @@ from pso_selection.pso_selection import PsoSelection
 class Main:
     def __init__(self, ):
         config = load_configuration()
+        self.num_dimensions = config['num_dimensions']
         self.num_particles = config["num_particles"]
         self.maxiter = config["maxiter"]
         self.num_runs = config["num_runs"]
@@ -24,7 +25,6 @@ class Main:
         # Główny punkt aplikacji
         #
         # Wykonaj dla wszystkich wybranych algorytmów
-        Evaluator.print_short_results_header()
 
         for algorithm in self.algorithms():
             for func in self.functions():
@@ -32,8 +32,6 @@ class Main:
                 algorithm_obj = algorithm(func())
                 eval = Evaluator(func(), self.maxiter,
                                  self.num_runs, algorithm_obj)
-                eval.print_short_results()
-                # eval.print_results()
 
                 # Dodaj wyniki do excela
                 self.add_to_export_results(
@@ -64,31 +62,31 @@ class Main:
     def pso(self, function):
         # Klasyczny algorytm PSO
         #
-        return Pso(func=function.func, num_dimensions=function.num_dimensions, bounds=function.bounds,
+        return Pso(func=function.func, num_dimensions=get_num_dimensions(self.num_dimensions, function.num_dimensions), bounds=function.bounds,
                    num_particles=self.num_particles)
 
     def pso_ring_topology(self, function):
         # Algorytm PSO z modyfikacją sąsiedztwa według indeksu - topologia pierścienia
         #
-        return PsoRingTplgy(func=function.func, num_dimensions=function.num_dimensions, bounds=function.bounds,
+        return PsoRingTplgy(func=function.func, num_dimensions=get_num_dimensions(self.num_dimensions, function.num_dimensions), bounds=function.bounds,
                             num_particles=self.num_particles, num_neighborhoods=self.num_neighborhoods)
 
     def pso_spatial_neighborhood(self, function):
         # Algorytm PSO z modyfikacją sąsiedztwa przestrzennego z progiem zmiennym w procesie iteracji
         #
-        return PsoSpatialNeigh(func=function.func, num_dimensions=function.num_dimensions, bounds=function.bounds,
+        return PsoSpatialNeigh(func=function.func, num_dimensions=get_num_dimensions(self.num_dimensions, function.num_dimensions), bounds=function.bounds,
                                num_particles=self.num_particles, maxiter=self.maxiter)
 
     def pso_star_topology(self, function):
         # Algorytm PSO z modyfikacją sąsiedztwa - topologia gwiazdy
         #
-        return PsoStarTplgy(func=function.func, num_dimensions=function.num_dimensions, bounds=function.bounds,
+        return PsoStarTplgy(func=function.func, num_dimensions=get_num_dimensions(self.num_dimensions, function.num_dimensions), bounds=function.bounds,
                             num_particles=self.num_particles)
 
     def pso_selection(self, function):
         # Algorytm PSO z modyfikacją ewolucyjną - selekcja
         #
-        return PsoSelection(func=function.func, num_dimensions=function.num_dimensions, bounds=function.bounds,
+        return PsoSelection(func=function.func, num_dimensions=get_num_dimensions(self.num_dimensions, function.num_dimensions), bounds=function.bounds,
                             num_particles=self.num_particles, num_tournament_particles=self.num_tournament_particles)
 
     ###
@@ -100,10 +98,10 @@ class Main:
         #
         algorithms = []
         algorithms.append(self.pso)
-        algorithms.append(self.pso_ring_topology)
-        algorithms.append(self.pso_spatial_neighborhood)
-        algorithms.append(self.pso_star_topology)
-        algorithms.append(self.pso_selection)
+        # algorithms.append(self.pso_ring_topology)
+        # algorithms.append(self.pso_spatial_neighborhood)
+        # algorithms.append(self.pso_star_topology)
+        # algorithms.append(self.pso_selection)
         return algorithms
 
     def uniques_algorithms(self):
@@ -118,22 +116,15 @@ class Main:
         # Wybierz funkcje celu, które zostaną przetestowane
         #
         functions = []
-        # Many Local Minima
-        functions.append(ackley)        # Wiele wymiarów
-        functions.append(griewank)      # Wiele wymiarów
-        functions.append(crossit)     # Dwa wymiary
-        functions.append(levy13)      # Dwa wymiary
-        functions.append(levy)          # Wiele wymiarów
-        functions.append(rastrigin)     # Wiele wymiarów
-        functions.append(schwefel)      # Wiele wymiarów
-        # Bowl-Shaped
-        functions.append(boha1)       # Dwa wymiary
-        # Plate-Shaped
-        functions.append(booth)       # Dwa wymiary
-        # Steep Ridges/Drops
-        functions.append(easom)       # Dwa wymiary
-        # Other
-        functions.append(beale)       # Dwa wymiary
+        # functions.append(sphere)
+        functions.append(f2)
+        functions.append(rosenbrock)
+        functions.append(griewank)
+        functions.append(rastrigin)
+        functions.append(ackley)
+        functions.append(schwefel)
+        functions.append(zakharov)
+        functions.append(levy)
         return functions
 
     def uniques_functions(self):

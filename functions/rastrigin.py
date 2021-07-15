@@ -3,14 +3,14 @@ from math import *
 
 
 # http://www.sfu.ca/~ssurjano/rastr.html
-# num_dimension = 1,...,d
 def rastrigin():
     f = Function()
     f.name = "RASTRIGIN"
     f.solution = 0
     f.solution_position = [0, 0]
-    f.num_dimensions = 5
+    f.num_dimensions = 30           # get only if config nun_dimensions is equal to 0
     f.bounds = [-5.12, 5.12]
+    f.accuracy = 30
     f.func = f_rastrigin
     # f.print_solution()
     return f

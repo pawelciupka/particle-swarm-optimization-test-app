@@ -5,6 +5,7 @@ class Function:
     num_dimensions = None
     bounds = None
     func = None
+    accuracy = None
 
     def print_solution(self):
         print("\n--------------------")

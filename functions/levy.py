@@ -3,13 +3,12 @@ from math import *
 
 
 # http://www.sfu.ca/~ssurjano/levy.html
-# num_dimension = 1,...,d
 def levy():
     f = Function()
     f.name = "LEVY"
     f.solution = 0
     f.solution_position = [1, 1]
-    f.num_dimensions = 5
+    f.num_dimensions = 30           # get only if config nun_dimensions is equal to 0
     f.bounds = [-10, 10]
     f.func = f_levy
     # f.print_solution()

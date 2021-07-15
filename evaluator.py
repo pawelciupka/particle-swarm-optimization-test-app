@@ -29,6 +29,11 @@ class Evaluator:
         # Najlepsze wartości algorytmu dla poszczególnych iteracji
         self.best_solutions_per_iteration = []
 
+        # if self.func.accuracy == None:
+        #     self.stop_precision = 4
+        # else:
+        #     self.stop_condition = self.func.accuracy
+            
         self.stop_precision = 4
         self.result_precision = 3
 
