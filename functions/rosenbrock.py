@@ -10,7 +10,7 @@ def rosenbrock():
     f.solution_position = [1, 1]
     f.num_dimensions = 30           # get only if config nun_dimensions is equal to 0
     f.bounds = [-2.048, 2.048]
-    f.accuracy = 30
+    f.accuracy = 1/3                # 30
     f.func = f_rosenbrock
     # f.print_solution()
     return f

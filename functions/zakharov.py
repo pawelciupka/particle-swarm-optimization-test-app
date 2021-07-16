@@ -10,7 +10,7 @@ def zakharov():
     f.solution_position = [0, 0]
     f.num_dimensions = 30           # get only if config nun_dimensions is equal to 0
     f.bounds = [-10, 10]
-    f.accuracy = 0.001
+    f.accuracy = 3                  # 0.001
     f.func = f_zakharov
     # f.print_solution()
     return f

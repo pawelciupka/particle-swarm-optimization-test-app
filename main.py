@@ -116,7 +116,7 @@ class Main:
         # Wybierz funkcje celu, które zostaną przetestowane
         #
         functions = []
-        # functions.append(sphere)
+        functions.append(sphere)
         functions.append(f2)
         functions.append(rosenbrock)
         functions.append(griewank)

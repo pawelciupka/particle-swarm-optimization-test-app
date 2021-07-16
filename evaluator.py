@@ -32,9 +32,9 @@ class Evaluator:
         # if self.func.accuracy == None:
         #     self.stop_precision = 4
         # else:
-        #     self.stop_condition = self.func.accuracy
+        #     self.stop_precision = self.func.accuracy
             
-        self.stop_precision = 4
+        self.stop_precision = 3
         self.result_precision = 3
 
         for i in range(0, self.num_runs):
