@@ -11,7 +11,7 @@ from pso_selection.pso_selection import PsoSelection
 
 class Main:
     def __init__(self, ):
-        config = load_configuration()
+        config = load_configuration(True)
         self.num_dimensions = config['num_dimensions']
         self.num_particles = config["num_particles"]
         self.maxiter = config["maxiter"]

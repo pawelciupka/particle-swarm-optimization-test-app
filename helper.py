@@ -12,10 +12,13 @@ def load_configuration(do_print=False):
     with open("config.json", "r") as read_file:
         config = json.load(read_file)
     if do_print:
-        for key, value in config.items():
-            print(key, ":", value)
-        print("\n")
+        print_configuration(config)
     return config
+
+def print_configuration(config):
+    # Wyświetl jednolinijkowy tekst z wartościami konfiguracyjnymi
+    #
+    print("dim: " + str(config["num_dimensions"]) + " | parts: " + str(config["num_particles"]) + " | iters: " + str(config["maxiter"]) + " | neighs: " + str(config["num_neighborhoods"]) + " | tourns: " + str(config["num_tournament_particles"]) + " | \n")
 
 def export_results(results, filename="results", do_print=True):
     # Eksportuj rezultaty do excela

@@ -174,38 +174,3 @@ class Evaluator:
             # Podziel obliczoną sumę przez ilość uruchomień
             result.append(round(iteration_sum/self.num_runs, self.result_precision))
         return result
-
-    def print_results(self):
-        # Wyświetl wyniki
-        #
-        print("Algorytm: ", self.algorithm.name)
-        print("Funkcja:  ", self.func.name)
-        print("  Skuteczność:                  ", self.efficiency())
-        print("  Średnia liczba iteracji       ", self.avg_successful_iters())
-        print("  Średnia najlepszych wartości  ", self.avg_best_solutions())
-        print("  Najlepsza znaleziona wartość  ", self.best_solution())
-        print("  Najgorsza znaleziona wartość  ", self.worst_solution())
-        print("  Odchylenie standardowe        ", self.std())
-        print("  Mediana                       ", self.median())
-        print("  Średni czas wykonywania [sec] ", self.avg_duration())
-        print()
-
-    @staticmethod
-    def print_short_results_header():
-        # Wyświetl nagłówek krótkich wyników
-        #
-        print("Algorytm | Funkcja | Skuteczność | Avg Iters | Avg Best | Best | Std | Median | Avg Time")
-
-    def print_short_results(self):
-        # Wyświetl krótkie wyniki
-        #
-        print(
-            self.algorithm.name + ' | ' + 
-            self.func.name + ' | ' + 
-            str(self.efficiency()) + ' | ' + 
-            str(self.avg_successful_iters()) + ' | ' +
-            str(self.avg_best_solutions()) + ' | ' + 
-            str(self.best_solution()) + ' | ' + 
-            str(self.std()) + ' | ' + 
-            str(self.median()) + ' | ' + 
-            str(self.avg_duration()))
