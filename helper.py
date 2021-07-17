@@ -11,7 +11,7 @@ def load_configuration(do_print=False):
     with open("config.json", "r") as read_file:
         config = json.load(read_file)
     if do_print:
-        print(get_configuration_print(config) + "\n")
+        print("\n" + get_configuration_print(config) + "\n")
     return config
 
 

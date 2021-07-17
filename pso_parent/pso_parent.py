@@ -4,6 +4,8 @@ from pso.pso_particle import PsoParticle
 
 class PsoParent():
     def __init__(self, name, func, num_dimensions, bounds, num_particles):
+        print("Start   -   " + name + "   -   " + func.__name__)
+
         # Nazwa algorytmu
         self.name = name
         # Funkcja celu

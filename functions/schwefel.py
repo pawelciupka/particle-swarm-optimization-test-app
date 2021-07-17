@@ -20,8 +20,8 @@ def f_schwefel(position):
     d = len(position)
     sum = 0
 
-    for ii in range(0, d):
-        xi = position[ii]
+    for ii in range(1, d+1):
+        xi = position[ii-1]
         sum = sum + xi*sin(sqrt(abs(xi)))
 
     return 418.9829*d - sum

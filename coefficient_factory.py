@@ -15,9 +15,9 @@ maxiter = config["maxiter"]
 
 def get_coefficients_vector(particle, iter):
     # coeff_vector = w_1(particle, iter), c1_1(particle, iter), c2_1(particle, iter)
-    coeff_vector = w_2(particle, iter), c1_2(particle, iter), c2_2(particle, iter)
+    # coeff_vector = w_2(particle, iter), c1_2(particle, iter), c2_2(particle, iter)
     # coeff_vector = w_3(particle, iter), c1_3(particle, iter), c2_3(particle, iter)
-    # coeff_vector = w_4(particle, iter), c1_4(particle, iter), c2_4(particle, iter)
+    coeff_vector = w_4(particle, iter), c1_4(particle, iter), c2_4(particle, iter)
     # coeff_vector = w_5(particle, iter), c1_5(particle, iter), c2_5(particle, iter)
     return coeff_vector
 

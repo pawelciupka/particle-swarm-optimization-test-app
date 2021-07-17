@@ -1,6 +1,5 @@
 from functions.ackley import *
 from functions.griewank import *
-from functions.levy import *
 from functions.rastrigin import *
 from functions.schwefel import *
 from functions.sphere import *

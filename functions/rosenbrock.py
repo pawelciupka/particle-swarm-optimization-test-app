@@ -17,9 +17,12 @@ def rosenbrock():
 
 
 def f_rosenbrock(position):
+    d = len(position)
     sum = 0
 
-    for i in range(len(position)-1):
-        sum += 100*((position[i]**2)-position[i+1])**2+(1-position[i])**2
+    for ii in range(1, d+1):
+        xi = position[ii-2]
+        xii = position[ii-1]
+        sum += 100*((xi**2)-xii)**2+(1-xi)**2
     
     return sum

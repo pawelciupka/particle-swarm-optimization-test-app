@@ -38,10 +38,10 @@ class PsoParticle:
         # Współczynnik inercji/kognitywny/socjalny (w, c1, c2)
         w, c1, c2 = coefficient_factory.get_coefficients_vector(self, iter)
 
-        r1 = random.random()
-        r2 = random.random()
-
         for i in range(0, self.num_dimensions):
+            r1 = random.random()
+            r2 = random.random()
+
             vel_cognitive = c1 * r1 * (self.p_pos_best[i] - self.position[i])
             vel_social = c2 * r2 * (pos_best_g[i] - self.position[i])
             self.velocity[i] = w * self.velocity[i] + \

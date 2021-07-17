@@ -20,8 +20,8 @@ def f_rastrigin(position):
     d = len(position)
     sum = 0
 
-    for ii in range(0, d):
-        xi = position[ii]
+    for ii in range(1, d+1):
+        xi = position[ii-1]
         sum = sum + (xi**2 - 10*cos(2*pi*xi))
 
     return 10*d + sum
