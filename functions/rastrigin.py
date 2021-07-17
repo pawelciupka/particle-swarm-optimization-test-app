@@ -22,6 +22,6 @@ def f_rastrigin(position):
 
     for ii in range(1, d+1):
         xi = position[ii-1]
-        sum = sum + (xi**2 - 10*cos(2*pi*xi))
+        sum = sum + (xi**2 - 10*cos(2*pi*xi) + 10)
 
     return sum
