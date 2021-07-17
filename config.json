@@ -1,6 +1,6 @@
 {
     "num_dimensions": 20,
-    "num_particles": 30,
+    "num_particles": 20,
     "maxiter": 1000,
     "num_neighborhoods": 4,
     "num_tournament_particles": 15,

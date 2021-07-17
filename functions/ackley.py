@@ -11,7 +11,7 @@ def ackley():
     f.num_dimensions = 30           # get only if config nun_dimensions is equal to 0
     f.bounds = [-32, 32]
     f.func = f_ackley
-    f.accuracy = 4                  # 0.0001
+    f.accuracy = 0.0001
     # f.print_solution()
     return f
 

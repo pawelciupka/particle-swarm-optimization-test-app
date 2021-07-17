@@ -28,13 +28,7 @@ class Evaluator:
         self.durations = []
         # Najlepsze wartości algorytmu dla poszczególnych iteracji
         self.best_solutions_per_iteration = []
-
-        # if self.func.accuracy == None:
-        #     self.stop_precision = 4
-        # else:
-        #     self.stop_precision = self.func.accuracy
             
-        self.stop_precision = 3
         self.result_precision = 3
 
         for i in range(0, self.num_runs):
@@ -48,27 +42,27 @@ class Evaluator:
         # 2. Jeżeli zostanie znalezione rozwiązanie
         #
         if iter < self.maxiter:
-            if self.algorithm.g_value_best != None and round(self.func.solution, self.stop_precision) == round(self.algorithm.g_value_best, self.stop_precision):
-                # Zwiększ liczbe pomyślnie zakończonych testów
-                self.num_successful_runs += 1
-                # Dodaj liczbe iteracji do listy z liczbą iteracji pomyślnie zakończonych testów
-                self.successful_runs_iters.append(iter)
-                # Dodaj najlepsze rozwiązanie do listy najlepszych rozwiązań
-                self.best_solutions.append(
-                    round(self.algorithm.g_value_best, self.stop_precision))
-                # Dodaj najgorsze rozwiązanie do listy najgorszych rozwiązań
-                self.worst_solutions.append(
-                    round(self.algorithm.g_value_worst, self.stop_precision))
-                return False
-            else:
-                return True
+            if self.algorithm.g_value_best != None:
+                if self.algorithm.g_value_best <= self.func.solution+self.func.accuracy and self.algorithm.g_value_best >= self.func.solution-self.func.accuracy:
+                    # Zwiększ liczbe pomyślnie zakończonych testów
+                    self.num_successful_runs += 1
+                    # Dodaj liczbe iteracji do listy z liczbą iteracji pomyślnie zakończonych testów
+                    self.successful_runs_iters.append(iter)
+                    # Dodaj najlepsze rozwiązanie do listy najlepszych rozwiązań
+                    self.best_solutions.append(
+                        round(self.algorithm.g_value_best, self.result_precision))
+                    # Dodaj najgorsze rozwiązanie do listy najgorszych rozwiązań
+                    self.worst_solutions.append(
+                        round(self.algorithm.g_value_worst, self.result_precision))
+                    return False
+            return True
         else:
             # Dodaj najlepsze rozwiązanie do listy najlepszych rozwiązań
             self.best_solutions.append(
-                round(self.algorithm.g_value_best, self.stop_precision))
+                round(self.algorithm.g_value_best, self.result_precision))
             # Dodaj najgorsze rozwiązanie do listy najgorszych rozwiązań
             self.worst_solutions.append(
-                round(self.algorithm.g_value_worst, self.stop_precision))
+                round(self.algorithm.g_value_worst, self.result_precision))
             return False
 
     def main(self):
