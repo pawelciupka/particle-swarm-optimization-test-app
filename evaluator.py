@@ -41,7 +41,7 @@ class Evaluator:
         # 1. Jeżeli liczba iteracji zostanie przekroczona
         # 2. Jeżeli zostanie znalezione rozwiązanie
         #
-        if iter < self.maxiter:
+        if iter <= self.maxiter:
             if self.algorithm.g_value_best != None:
                 if self.algorithm.g_value_best <= self.func.solution+self.func.accuracy and self.algorithm.g_value_best >= self.func.solution-self.func.accuracy:
                     # Zwiększ liczbe pomyślnie zakończonych testów

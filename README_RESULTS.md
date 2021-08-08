@@ -8,17 +8,14 @@
 ---
 # Współczynniki:
 ## Grupa 1
-- 20 wymiarów, 70 cząteczek, 1000 iteracji
+- 20 wymiarów, 60 cząteczek, 1000 iteracji
 
 ## Grupa 2
-- Słabe wyniki dla PSO. Przy 20 wymiarach. 50 cząsteczkach i 1000 iteracji, wyniki zbliżaja się do prawidłowych. W przypadku funkcji Rastrigin i Schwefel wyniki są bardzo słabe i dla 100 prób nie udało się osiągnąć rozwiązania. Pozostałe funkcje: Rosenbrock, Griewank, Ackley i Zakharov osiągają skuteczność zbliżoną do 10%.
-- 
-
+- 20 wymiarów, 30 cząteczek, 1000 iteracji
 
 ## Grupa 3
-- 20 wymiarów, 30 cząteczek, 1000 iteracji
-- 
+- 20 wymiarów, 20 cząteczek, 1000 iteracji
 
 ## Grupa 4
-- 20 wymiarów, 40 cząteczek, 1000 iteracji
+- 20 wymiarów, 30 cząteczek, 1000 iteracji
 - 
