@@ -97,9 +97,9 @@ class Main:
         # Wybierz algorytmy, które zostaną przetestowane
         #
         algorithms = []
-        # algorithms.append(self.pso)
+        algorithms.append(self.pso)
         # algorithms.append(self.pso_ring_topology)
-        algorithms.append(self.pso_spatial_neighborhood)
+        # algorithms.append(self.pso_spatial_neighborhood)
         # algorithms.append(self.pso_star_topology)
         # algorithms.append(self.pso_selection)
         return algorithms
@@ -116,14 +116,14 @@ class Main:
         # Wybierz funkcje celu, które zostaną przetestowane
         #
         functions = []
-        # functions.append(sphere)
-        # functions.append(f2)
-        # functions.append(rosenbrock)
-        # functions.append(griewank)
-        # functions.append(rastrigin)
+        functions.append(sphere)
+        functions.append(f2)
+        functions.append(rosenbrock)
+        functions.append(griewank)
+        functions.append(rastrigin)
         functions.append(ackley)
-        # functions.append(schwefel)
-        # functions.append(zakharov)
+        functions.append(schwefel)
+        functions.append(zakharov)
         return functions
 
     def uniques_functions(self):
