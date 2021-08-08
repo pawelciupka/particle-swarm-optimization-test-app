@@ -13,12 +13,13 @@ class PsoSpatialNeigh(PsoParent):
     def update_velocity_and_position(self, iter):
         # Zaktualizuj prędkość i pozycję wszystkich cząsteczek w roju
         #
-        # Maksymalna odległość pomiędzy cząsteczkami w roju
-        max_distance = self.get_max_distance_between_particles()
         # Wartość progowa dla aktualnej iteracji
-        threshold = self.calculate_floating_threshold_value(iter)
+        threshold = self.calculate_floating_threshold_value(iter) / 3.6
 
         for i in range(0, self.num_particles):
+            # Maksymalna odległość pomiędzy cząsteczkami w roju
+            max_distance = self.get_max_distance_between_particles()
+
             neighborhoods_pos_best = list(self.swarm[i].position)
             neighborhoods_value_best = self.swarm[i].value
 
