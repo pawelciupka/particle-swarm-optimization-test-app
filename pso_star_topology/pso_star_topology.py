@@ -27,13 +27,13 @@ class PsoStarTplgy(PsoParent):
     def update_velocity_and_position(self, iter):
         # Zaktualizuj prędkość i pozycję wszystkich cząsteczek w roju
         #
-        global_neighborhood_pos = list(
-            self.swarm[self.global_neighborhood_index].position)
-
         # Zaktualizuj prędkość i pozycję globalnego sąsiada korzystając z najlepszego znalezionego rozwiązania
         self.swarm[self.global_neighborhood_index].update_velocity(
             self.g_pos_best, iter)
         self.swarm[self.global_neighborhood_index].update_position(self.bounds)
+        
+        global_neighborhood_pos = list(
+            self.swarm[self.global_neighborhood_index].position)
 
         for i in range(0, self.num_particles):
             if i != self.global_neighborhood_index:
