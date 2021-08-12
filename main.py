@@ -98,10 +98,10 @@ class Main:
         #
         algorithms = []
         algorithms.append(self.pso)
-        # algorithms.append(self.pso_ring_topology)
-        # algorithms.append(self.pso_spatial_neighborhood)
-        # algorithms.append(self.pso_star_topology)
-        # algorithms.append(self.pso_selection)
+        algorithms.append(self.pso_ring_topology)
+        algorithms.append(self.pso_spatial_neighborhood)
+        algorithms.append(self.pso_star_topology)
+        algorithms.append(self.pso_selection)
         return algorithms
 
     def uniques_algorithms(self):

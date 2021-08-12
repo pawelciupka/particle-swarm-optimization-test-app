@@ -1,6 +1,7 @@
 from math import *
 from os import truncate
 from helper import *
+import random
 
 config = load_configuration()
 maxiter = config["maxiter"]
@@ -18,7 +19,8 @@ def get_coefficients_vector(particle, iter):
     # coeff_vector = w_2(particle, iter), c1_2(particle, iter), c2_2(particle, iter)
     # coeff_vector = w_3(particle, iter), c1_3(particle, iter), c2_3(particle, iter)
     # coeff_vector = w_4(particle, iter), c1_4(particle, iter), c2_4(particle, iter)
-    coeff_vector = w_5(particle, iter), c1_5(particle, iter), c2_5(particle, iter)
+    # coeff_vector = w_5(particle, iter), c1_5(particle, iter), c2_5(particle, iter)
+    coeff_vector = w_6(particle, iter), c1_6(particle, iter), c2_6(particle, iter)
     return coeff_vector
 
 # Grupa pierwsza - START
@@ -82,6 +84,16 @@ def c2_5(particle, iter):
 ##### Grupa piąta - STOP
 
 
+
+#### Grupa czwarta - START
+def w_6(particle, iter):
+    rand_val = random.uniform(0, 1)
+    return 0.5 + (rand_val / 2)
+def c1_6(particle, iter):
+    return 1.494
+def c2_6(particle, iter):
+    return 1.494
+#### Grupa czwarta - STOP
 
 
 # Funkcje pomocnicze
